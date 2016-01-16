@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<head>
+<title>Safe and Secure Trip Tracker</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="js/jquery.easing.js"></script>
+<script type="text/javascript" src="js/jquery.ulslide.js"></script>
+
+<script src="js/api.js"></script>
+<script src="js/trip.js"></script>
+<script src="js/sms.js"></script>
+<script src="js/site.js"></script>
+<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
+<script type="text/javascript">
+		$(function() {
+			$('nav#menu').mmenu();
+		});
+	</script>
+</head>
+<body>			       
+	    <div class="wrap">	 
+	      <div class="header">
+	      	  <div class="header_top">
+	      	     	<div class="menu-ico"><a href="#menu"></a></div>
+					  <div class="profile_details">
+				    		   <div id="loginContainer">
+				                  <a id="loginButton" class=""><span>Me</span></a>   
+				                    <div id="loginBox">                
+				                      <form id="loginForm">
+				                        <fieldset id="body">
+				                            <div class="user-info">
+							        			<h4>Hello,<a href="#"> Username</a></h4>
+							        			<ul>
+							        				<li class="profile active"><a href="#">Profile </a></li>
+							        				<li class="logout"><a href="#"> Logout</a></li>
+							        				<div class="clear"></div>		
+							        			</ul>
+							        		</div>			                            
+				                        </fieldset>
+				                    </form>
+				                </div>
+				            </div>
+				             <div class="profile_img">	
+				             	<a href=""><img src="images/profile_img40x40.jpg" alt="" />	</a>
+				             </div>		
+				             <div class="clear"></div>		  	
+					    </div>	
+		 		      <div class="clear"></div>				 
+				   </div>
+			</div>	  					     
+	   </div>	  				 
+	  <div class="main">  
+	    <div class="wrap">  		 
+	       <div class="column_left">
+
+			   <div class="chart">
+				   <h3>Trip</h3>
+				   <br/>
+				   <div class="button start-trip"><a>Start a Trip</a></div>
+				   <br/>
+				   <div class="button track-coordinates"><a>Start Active GPS Tracking</a></div>
+				   <br/>
+				   <div class="button get-trip"><a>Get a Trip</a></div>
+				   <br/>
+				   <div class="button get-trip-destination"><a>Get Current Trip Destination</a></div>
+				   <br/>
+			   </div>
+
+			   <div class="chart">
+				   <h3>Debug Info</h3>
+				   <br/>
+				   <div class="device-ready">Device Not Ready</div>
+				   <br/>
+				   <div class="first-position">First position not set</div>
+				   <div class="current-position">Current position not set</div>
+				   <div class="user-destination"> User destination not set</div>
+				   <div class="distance-remaining">Distance remaining not set</div>
+			   </div>
+		          
+		          		<div class="social_network_likes">
+				      		<ul>
+				      			<li><a href="#" class="facebook"><i><img src="images/facebook_icon.png" alt=""></i> <span>248k</span></a></li>
+				      			<li><a href="#" class="twitter"><i><img src="images/tweets.png" alt=""></i> <span>30k</span></a></li>
+				      			<li><a href="#" class="googleplus"><i><img src="images/google+.png" alt=""></i> <span>124k</span></a></li>
+				      			<li><a href="#" class="mail"><i><img src="images/mail-hover.png" alt=""></i> <span>89k</span></a></li>
+				      			<div class="clear"></div>
+				    		</ul>
+		          		</div>
+	  		</div> 
+	  		
+            <div class="column_middle">
+              <div class="column_middle_grid1">
+		         <div class="profile_picture">
+		        	<a href=""><img src="images/profile_img150x150.jpg" alt="" />	</a>		         
+		            <div class="profile_picture_name">
+		            	<h2>Anne Hathaway</h2>
+		            	<p>Lorem ipsum dolor sit amet consectetur adipisicing </p>
+		            </div>
+		             <span><a href="#"> <img src="images/follow_user.png" alt="" /> </a></span>
+		          </div>
+		           <div class="articles_list">
+		           	  <ul>
+		           	  	<li><a href="#" class="red"> <img src="images/comments.png" alt="" /> 23</a></li>
+		           	  	<li><a href="#" class="purple"> <img src="images/views.png" alt="" /> 841</a></li>
+		           	  	<li><a href="#" class="yellow"> <img src="images/likes.png" alt="" /> 49</a></li>
+		           	  	<div class="clear"></div>	
+		           	  </ul>
+		           </div>
+		       </div>
+		         <div class="weather">
+		               <h3><i><img src="images/location.png" alt="" /> </i> Cluj-Napoca / Ro</h3>
+		              <div class="today_temp">
+		                <div class="temp">
+							<figure>Fri 29/06<span>24<em>o</em></span></figure>
+						</div>
+						<img src="images/sun.png" alt="" />
+					</div>
+						<div class="temp_list">
+				      			<ul>
+						  		    <li><a href="#"><span class="day_name">Sat</span>&nbsp; 29/06 
+						  			<label class="digits">25<em>o</em> <i><img src="images/sun_icon1.png" alt="" /></i></label><div class="clear"></div></a></li>
+						  			<li class="active"><a href="#"><span class="day_name">Sun</span>&nbsp; 30/06 
+						  			<label class="digits">22<em>o</em> <i><img src="images/clouds.png" alt="" /></i></label><div class="clear"></div></a></li>
+						  			<li><a href="#"><span class="day_name">Mon</span>&nbsp; 01/07 
+						  			<label class="digits">24<em>o</em> <i><img src="images/clouds.png" alt="" /></i></label><div class="clear"></div></a></li>
+						  			<li><a href="#"><span class="day_name">Tue</span>&nbsp; 02/07 
+						  			<label class="digits">26<em>o</em> <i><img src="images/sun_icon1.png" alt="" /></i></label><div class="clear"></div></a></li>
+						  			<li><a href="#"><span class="day_name">Wed</span>&nbsp; 03/07 
+						  			<label class="digits">27<em>o</em> <i><img src="images/sun_icon2.png" alt="" /></i></label><div class="clear"></div></a></li>
+						  			<li><a href="#"><span class="day_name">Thu</span>&nbsp; 04/07
+						  			<label class="digits">29<em>o</em> <i><img src="images/sun_icon2.png" alt="" /></i></label><div class="clear"></div></a></li>
+				    		</ul>
+				      </div>
+		          </div>	           
+		         <div class="tweets">
+		               <h3><i><img src="images/tweets.png" alt="" /> </i> Latest Tweets</h3>		              
+						<div class="tweets_list">
+				      		<ul>
+						  		<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore <a href="#">@Neque</a>
+						  			<span>10 minutes ago</span></li>
+						  	   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore eiusmod <a href="#">#Creative Cloud</a>
+						  			<span>2 hours ago</span></li>
+				    		</ul>
+				      </div>
+		          </div>
+		          <div class="social_networks">
+				      		<ul>
+				      			<li><a href="#" class="facebook"><i><img src="images/facebook_icon.png" alt="" /></i> <span>Share to Facebook</span><div class="clear"></div></a></li>
+				      			<li><a href="#" class="twitter"><i><img src="images/tweets.png" alt="" /></i> <span>Share to Twitter</span><div class="clear"></div></a></li>
+				      			<li><a href="#" class="googleplus"><i><img src="images/google+.png" alt="" /></i> <span>Share to Google+</span><div class="clear"></div></a></li>
+				    		</ul>
+		          </div>	           
+		       
+    	    </div>
+    	    
+            <div class="column_right">
+            	<div class="column_right_grid">
+                 <div class="newsletter">
+				   <h3>Join the newsletter</h3>
+					    <form>
+					    	<span>
+					 	     <i><img src="images/mail.png" alt="" /></i>
+					 	     <input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
+					 	    </span>			 	    
+					 		<input type="submit" class="my_button" value="Subscribe">
+					 	</form>
+				   </div>
+			   </div>
+				 <div class="column_right_grid sign-in">
+				 	<div class="sign_in">
+				       <h3>Sign in to your account</h3>
+					    <form>
+					    	<span>
+					 	    <i><img src="images/mail.png" alt="" /></i><input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
+					 	    </span>
+					 	    <span>
+					 	     <i><img src="images/lock.png" alt="" /></i>
+					 	     <input type="password" placeholder="password">
+					 	    </span>
+					 		<input type="submit" class="my-button"  value="Sign In">
+					 	</form>
+					       <h4><a href="#">Forget Password?</a></h4>				   
+          		       </div>
+          		 	  <div class="signin_facebook">
+					   	 <p><a href="#">  <i> <img src="images/facebook.png" alt="" /></i>Sign in with facebook</a></p>
+				      </div>
+				   </div>
+				   <div class="column_right_grid downloading_uploading">
+                      <ul>
+					      <li>                              
+                            <div class="progress">
+                              <div class="progress-bar" style="width:81%"> </div>
+                            </div>
+                            <div class="clearfix">
+                                <p class="downloading"> <i><img src="images/download.png" alt="" /></i> Downloading...</p>
+                                <p class="percentage">81<em>%</em></p>
+                                <div class="clear"></div>
+                            </div>
+                           </li>
+                           <li>                              
+                            <div class="progress">
+                              <div class="progress-bar uploading" style="width:43%"> </div>
+                            </div>
+                            <div class="clearfix">
+                                <p class="downloading"><i><img src="images/upload.png" alt="" /></i> Uploading...</p>
+                                <p class="percentage">43<em>%</em></p>
+                                <div class="clear"></div>
+                            </div>
+                           </li>
+                        </ul>
+				   </div>
+				   <div class="column_right_grid date_events">
+				     	  <h3><a href="#" id="slide_prev"><img src="images/arrow-left.png" alt="" /></a> Wednesday <a href="#" id="slide_next"><img src="images/arrow-right.png" alt="" /></a></h3>
+				     	 		<ul id="slide" class="event_dates">					            
+						            <li>26</li>
+						            <li>25</li>
+						            <li>24</li>
+						            <li>23</li>
+						            <li>22</li>
+						            <li>21</li>
+						            <li>20</li>
+						            <li>19</li>
+						            <li>18</li>
+						            <li>17</li>
+						            <li>16</li>
+						            <li>15</li>
+						            <li>14</li>
+						            <li>13</li>
+						            <li>12</li>
+						            <li>11</li>
+						            <li>10</li>
+						            <li>9</li>
+						            <li>8</li>
+						            <li>7</li>
+						            <li>6</li>
+						            <li>5</li>
+						            <li>4</li>
+						            <li>3</li>
+						            <li>2</li>
+						            <li>1</li>
+						            <li>31</li>
+						            <li>30</li>
+						            <li>29</li>
+						            <li>28</li>
+						            <li>27</li>
+						        </ul>
+						         <div class="button"><a href="#">Add Event</a></div>											 				
+				           <script type="text/javascript">
+				            $(function() {						
+				                $('#slide').ulslide({
+				                   
+									effect: {
+										type: 'carousel', // slide or fade
+				                        axis: 'x',        // x, y
+										showCount:1
+									},
+				                    nextButton: '#slide_next',
+				                    prevButton: '#slide_prev',
+				                    duration: 800,
+				                    /*autoslide: 2000,*/
+									easing: 'easeOutBounce'
+				                });
+				            });
+				        </script>
+				    </div>
+				   <div class="column_right_grid calender">
+                      <div class="cal1"> </div>
+				   </div>
+             </div>
+    	<div class="clear"></div>
+ 	 </div>
+   </div>   
+   					<nav id="menu">
+							<ul>
+								<li><a href="#"><i><img src="images/user.png"></i> Profile</a></li>
+								<li><a href="#"><span><i><img src="images/mail.png"></i> Messages</span><label class="digits active">5</label><div class="clear"></div></a></li>
+						  		<li><a href="#"><span> <i><img src="images/invites.png"></i> Invites</span><label class="digits">3</label><div class="clear"></div></a></li>
+						  		<li><a href="#"><span> <i><img src="images/events.png"></i> Events</span><label class="digits">5</label><div class="clear"></div></a></li>
+						  		<li><a href="#"><i><img src="images/favourite.png" alt="" /></i>Favourites</a></li>
+						  		<li><a href="#"><span><i><img src="images/statistics.png"></i>  Statistics</span></a></li>		
+								<li><a href="#"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>																
+							</ul>
+					 </nav>
+		 <div class="copy-right">
+	 	 </div>
+</body>
+</html>

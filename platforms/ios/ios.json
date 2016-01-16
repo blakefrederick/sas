@@ -1,0 +1,133 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Sms\"><param name=\"ios-package\" value=\"Sms\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "*-Info.plist": {
+                "parents": {
+                    "NSLocationWhenInUseUsageDescription": [
+                        {
+                            "xml": "<string />",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.blake.workshop"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.blake.workshop"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.blake.workshop"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.blake.workshop"
+        },
+        "com.cordova.plugins.sms": {
+            "PACKAGE_NAME": "com.blake.workshop"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
+            "id": "cordova-plugin-console.console",
+            "pluginId": "cordova-plugin-console",
+            "clobbers": [
+                "console"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-console/www/logger.js",
+            "id": "cordova-plugin-console.logger",
+            "pluginId": "cordova-plugin-console",
+            "clobbers": [
+                "cordova.logger"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
+            "id": "cordova-plugin-geolocation.Coordinates",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "Coordinates"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+            "id": "cordova-plugin-geolocation.PositionError",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "PositionError"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+            "id": "cordova-plugin-geolocation.Position",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "Position"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+            "id": "cordova-plugin-geolocation.geolocation",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "navigator.geolocation"
+            ]
+        },
+        {
+            "file": "plugins/com.cordova.plugins.sms/www/sms.js",
+            "id": "com.cordova.plugins.sms.Sms",
+            "pluginId": "com.cordova.plugins.sms",
+            "clobbers": [
+                "window.sms"
+            ]
+        }
+    ],
+    "plugin_metadata": {
+        "cordova-plugin-whitelist": "1.2.0",
+        "cordova-plugin-device": "1.1.0",
+        "cordova-plugin-console": "1.0.2",
+        "cordova-plugin-geolocation": "2.0.1-dev",
+        "com.cordova.plugins.sms": "0.1.6"
+    }
+}
