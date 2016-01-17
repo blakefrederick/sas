@@ -44,7 +44,7 @@ function createTrip(userDestination, watcherPhoneNumber) {
             {"value": userDestination}
         ],
         "field_trip_status": [
-            {"value": 0}
+            {"value": 1}
         ],
         "field_watcher_phone_number": [
             {"value": watcherPhoneNumber}
