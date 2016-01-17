@@ -29,6 +29,7 @@ function createTrip(userDestination, watcherPhoneNumber) {
     console.log("About to create a new trip.");
 
     var date = new Date();
+    var title = "User Trip Dated " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 
     var requestObject = {
         "_links": {
@@ -37,7 +38,7 @@ function createTrip(userDestination, watcherPhoneNumber) {
             }
         },
         "title": [
-            {"value": "User Trip Dated " + date.getDate()}
+            {"value": title}
         ],
         "field_destination_coordinate": [
             {"value": userDestination}
