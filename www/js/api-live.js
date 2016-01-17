@@ -1,3 +1,11 @@
+function getDomain() {
+    return "http://sas.blakefrederick.com/"; // live
+}
+
+function getXCSRFToken() {
+    return "r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU"; //live
+}
+
 /**
  * Get a Trip
  *
@@ -6,7 +14,7 @@
  */
 function getTrip(nid, successCallback) {
     $.ajax({
-        url: "http://ssecurity.local/trip/" + nid,
+        url: "http://sas.blakefrederick.com/trip/" + nid,
         success: function(trip) {
             console.log("Successfully got a trip.");
             console.log("Attempting to call successCallback: " + successCallback);
@@ -33,7 +41,7 @@ function startTrip(userDestination) {
     var requestObject = {
         "_links": {
             "type": {
-                "href": "http://ssecurity.local/rest/type/node/trip"
+                "href": "http://sas.blakefrederick.com/rest/type/node/trip"
             }
         },
         "title": [
@@ -49,12 +57,19 @@ function startTrip(userDestination) {
 
     $.ajax({
         type:"POST",
+        //beforeSend: function (request)
+        //{
+        //    request.setRequestHeader("Authorization", "Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=");
+        //    request.setRequestHeader("X-CSRF-Token", "4n9aNNxPzbn3Lrb99ySVexBucIfKm8MmN8sE7LUAZTU");
+        //    request.setRequestHeader("Content-Type", "application/hal+json");
+        //},
         headers: {
             "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
-            "X-CSRF-Token": 'F19EmnoX0RMpy9g7zvKsIRLRG6QK5a_t4mYYS9kIJtE',
+            //"X-CSRF-Token": 'ZxpVJi1QFGR1EAgrNQ8ZuZDkq-5uYie-gukYpcZoKFQ', // local
+            "X-CSRF-Token": 'r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU', // live
             "Content-Type": 'application/hal+json'
         },
-        url: "http://ssecurity.local/entity/node",
+        url: "http://sas.blakefrederick.com/entity/node",
         data: JSON.stringify(requestObject),
         success: function(msg) {
             console.log("Successfully created a new trip.");
@@ -71,15 +86,6 @@ function startTrip(userDestination) {
  *
  * Trigger some actions that occur upon succesfully reaching a destination.
  */
-function endTrip(watchID, watcherPhoneNumber) {
-    // Stop watching the user's location
-    navigator.geolocation.clearWatch(watchID);
-    $('.notifications .container').prepend("GPS tracking has ended.");
-    console.log("GPS tracking has ended.");
-    // Send a text message to any trip watchers.
-    console.log("Now sending a text message to " + watcherPhoneNumber + ".");
-    $('.notifications .container').append("<p>Now sending a text message to " + watcherPhoneNumber + ".</p>");
-    sendSMS(watcherPhoneNumber);
-    // Change the status of the trip.
-    // API PATCH call goes here.
+function endTrip() {
+
 }

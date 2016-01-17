@@ -1,5 +1,5 @@
 function sendSMS(phoneNumber) {
-        var message = "The user reached their destination.";
+        var message = "The user has reached their destination.";
 
         var options = {
             replaceLineBreaks: false, // true to replace \n by a new line, false by default
@@ -10,10 +10,12 @@ function sendSMS(phoneNumber) {
         };
 
         var success = function () {
-            alert('SMS successfully sent to' + phoneNumber);
+            console.log('SMS successfully sent to ' + phoneNumber);
+            $('.notifications .container').prepend("<p>SMS successfully sent to " + phoneNumber + ".</p>");
         };
         var error = function (e) {
-            alert('SMS send message failed:' + e);
+            console.log("SMS messaged failed to send to " + phoneNumber + " with error " + e);
+            $('.notifications .container').prepend("<p>SMS messaged failed to send to " + phoneNumber + " with error " + e + "</p>");
         };
         sms.send(phoneNumber, message, options, success, error);
 }

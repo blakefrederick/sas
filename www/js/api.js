@@ -51,7 +51,7 @@ function startTrip(userDestination) {
         type:"POST",
         headers: {
             "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
-            "X-CSRF-Token": 'ZxpVJi1QFGR1EAgrNQ8ZuZDkq-5uYie-gukYpcZoKFQ',
+            "X-CSRF-Token": 'F19EmnoX0RMpy9g7zvKsIRLRG6QK5a_t4mYYS9kIJtE',
             "Content-Type": 'application/hal+json'
         },
         url: "http://ssecurity.local/entity/node",
@@ -71,6 +71,15 @@ function startTrip(userDestination) {
  *
  * Trigger some actions that occur upon succesfully reaching a destination.
  */
-function endTrip() {
-
+function endTrip(watchID, watcherPhoneNumber) {
+    // Stop watching the user's location
+    navigator.geolocation.clearWatch(watchID);
+    $('.notifications .container').prepend("<p>GPS tracking has ended.</p>");
+    console.log("GPS tracking has ended.");
+    // Send a text message to any trip watchers.
+    console.log("Now sending a text message to " + watcherPhoneNumber + ".");
+    $('.notifications .container').prepend("<p>Now sending a text message to " + watcherPhoneNumber + ".</p>");
+    sendSMS(watcherPhoneNumber);
+    // Change the status of the trip.
+    // API PATCH call goes here.
 }

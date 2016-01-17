@@ -1,17 +1,16 @@
 $(document).ready( function() {
 
+  var timer =  setInterval(currentTime, 1000);
+
   /**
    * Get a Trip by node ID.
    */
-
   $('.get-trip.button').click(function(e) {
 
     var trip;
     var nid = prompt("Enter the node ID fo the trip you'd like to retrieve.", "23");
-    trip = getTrip(nid);
-    console.table("Here's the trip you retrieved: " + trip);
 
-    getUserDestination(trip);
+    getTrip(nid, getUserDestination);
 
   });
 
@@ -19,7 +18,6 @@ $(document).ready( function() {
   /**
    * Post Coordinates
    */
-
   $('.get-trip-destination.button').click(function(e) {
 
     console.log("Clicked Get Trip Destination button.");
@@ -32,7 +30,6 @@ $(document).ready( function() {
   /**
    * Start Trip
    */
-
   $('.start-trip.button').click(function(e) {
 
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -53,6 +50,7 @@ $(document).ready( function() {
       var location = [position.coords.latitude, position.coords.longitude];
       console.log("Got location. Initial position: " + position.coords.latitude);
       $('.first-position').html("First recorded position: " + location[0] + ", " + location[1]);
+      $('.current-position').html("Current position: " + location[0] + ", " + location[1]);
     },
     function(error) {
       // error getting GPS coordinates
@@ -73,7 +71,5 @@ $(document).ready( function() {
   }
 
   document.addEventListener("deviceready", onDeviceReady, false);
-
-
 
 });

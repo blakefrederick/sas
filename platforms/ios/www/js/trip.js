@@ -1,6 +1,5 @@
-function setUserDestination() {
-
-
+function currentTime() {
+    $('.timer').append("<p>" + new Date().getTime() + "</p>");
 }
 
 function promptUserTripDetails(position) {
@@ -12,6 +11,7 @@ function promptUserTripDetails(position) {
 }
 
 function getUserDestination(trip) {
+    console.log("User destination is: " + trip[0].field_destination_coordinate[0].value);
     return trip[0].field_destination_coordinate[0].value;
 }
 

@@ -1,6 +1,5 @@
-function setUserDestination() {
-
-
+function currentTime() {
+    $('.timer').prepend("<p>" + new Date().getTime() + "</p>");
 }
 
 function promptUserTripDetails(position) {
@@ -12,6 +11,7 @@ function promptUserTripDetails(position) {
 }
 
 function getUserDestination(trip) {
+    console.log("User destination is: " + trip[0].field_destination_coordinate[0].value);
     return trip[0].field_destination_coordinate[0].value;
 }
 
@@ -26,16 +26,16 @@ function getMostRecentTrip() {
  * Track Coordinates
  *
  * Tracks GPS coordinates continually and constantly polls to see if we've reached
- * our destination (set by user intially).
+ * our destination.
  */
 function trackCoordinates(userDestination, watcherPhoneNumber) {
 
-    var watch_id = null;    // ID of the geolocation
+    var watchID = null;    // ID of the geolocation
     var tracking_data = []; // Array containing GPS position objects
     var distanceThresholdInKM = 0.03;
 
     // Start tracking the User
-    watch_id = navigator.geolocation.watchPosition(
+    watchID = navigator.geolocation.watchPosition(
 
         // Success
         function(position){
@@ -59,19 +59,21 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
 
 
             if(distanceInKM <= distanceThresholdInKM) {
-                console.log("You are within " + distanceThresholdInKM + " KMs of your destination.");
-                alert("You have reached your destination (" + distanceInKM/1000 + " meters away). Now sending an SMS to " + watcherPhoneNumber);
-                sendSMS(watcherPhoneNumber);
+                console.log("The distance tolerance is set to " + (distanceInKM/1000).toFixed(2) + " meters.");
+                $('.notifications .container').prepend("<p>The distance tolerance is set to " + (distanceInKM/1000).toFixed(2) + " meters.</p>");
+                console.log("You have reached your destination (" + (distanceInKM/1000).toFixed(2) + " meters away).");
+                $('.notifications .container').prepend("<p>You have reached your destination (" + (distanceInKM/1000).toFixed(2) + " meters away).</p>");
+
+                endTrip(watchID, watcherPhoneNumber);
             }
         },
-
-        // Error
         function(error){
             console.log(error);
         },
-
-        // Settings
-        { frequency: 3000, enableHighAccuracy: true }
+        {
+            frequency: 3000,
+            enableHighAccuracy: true
+        }
     );
 
 }
