@@ -15,9 +15,9 @@ function promptUserTripDetails(position) {
 
 
 function promptUserDestination(defaultPosition) {
-    var userDestination = prompt("Please enter your GPS destination [latitude,longitude]", defaultPosition.coords.latitude + ", " + defaultPosition.coords.longitude);
+    var userDestination = prompt("Please enter your GPS destination [latitude, longitude]", defaultPosition.coords.latitude + ", " + defaultPosition.coords.longitude);
 
-    //window.localStorage.setItem('userDestination', userDestination);
+    window.localStorage.setItem('userDestination', userDestination);
 
     return userDestination;
 }
@@ -41,6 +41,50 @@ function getMostRecentTrip() {
     getTrip("most-recent").then(function(trip) {
         return trip;
     });
+}
+
+
+/**
+ * Start Trip
+ *
+ * Get initial position and ask the user for some trip details.
+ */
+function startTrip(){
+    var userDestination = '';
+    var watcherPhoneNumber = '7783232713';
+
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+
+          //addNotification("<p>Getting current GPS position.</p>");
+
+          // Ask the user for their trip destination
+          userDestination = promptUserDestination(position);
+          // Ask the user who to contact when the trip ends
+          watcherPhoneNumber = promptWatcherPhoneNumber(watcherPhoneNumber);
+
+          addNotification("<p>An SMS will be sent to " + watcherPhoneNumber + " when your trip is complete.</p>");
+          addNotification("<p>Your trip will end when you reach your destination or if you end the trip manually.</p>");
+
+          createTrip(userDestination, watcherPhoneNumber);
+          trackCoordinates(userDestination, watcherPhoneNumber);
+
+          addNotification("<p>Trip initiated.</p>");
+
+          $('.trip-status .status').hide().html("Started").fadeIn("slow");
+          window.setTimeout(function() {
+              $('.trip-status .status').hide().html("In Progress").fadeIn("slow");
+          }, 1500);
+
+          // Allow the user to end their trip.
+          $('.button.start-trip').hide();
+          $(".button.end-trip").show();
+      },
+
+      function(error) {
+          addNotification("<p>Error. Could not get initial GPS location");
+      }
+    );
 }
 
 
@@ -71,20 +115,20 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
             var destinationCoordinates = getCoordinates(userDestination);
             var distanceInKM = distance(currentCoordinates["lat"], currentCoordinates["lon"],
                                         destinationCoordinates["lat"], destinationCoordinates["lon"]);
+            var distanceinM = (distanceInKM * 1000).toFixed(6);
 
-            console.log("Distance remaining: " + distanceInKM + " KM");
+            console.log("Distance remaining: " + (distanceInKM/1000).toFixed(6) + " M.");
 
             // Debug Info
             $('.current-position').html("Current position: " + currentCoordinates["lat"] + ', ' + currentCoordinates["lon"]);
-            $('.user-destination').html("User destination: " + userDestination["lat"] + ', ' + userDestination['"lon']);
-            $('.distance-remaining').html("Distance remaining: " + distanceInKM + "KM");
-
+            $('.user-destination').html("User destination: " + destinationCoordinates["lat"] + ', ' + destinationCoordinates["lon"]);
+            $('.distance-remaining').html("Distance remaining: " + distanceinM + " meters");
 
             if(distanceInKM <= distanceThresholdInKM) {
-                console.log("You have reached your destination (" + (distanceInKM/1000).toFixed(4) + " meters away).");
-                addNotification("<p>You have reached your destination (" + (distanceInKM/1000).toFixed(4) + " meters away).</p>");
-                console.log("(The distance tolerance is set to " + (distanceInKM/1000).toFixed(4) + " meters.)");
-                addNotification("<p>(The distance tolerance is set to " + (distanceInKM/1000).toFixed(4) + " meters.)</p>");
+                console.log("You have reached your destination (" + distanceinM + " meters away).");
+                addNotification("<p>You have reached your destination (" + distanceinM + " meters away).</p>");
+                console.log("(The distance tolerance is set to " + distanceinM + " meters.)");
+                addNotification("<p>(The distance tolerance is set to " + distanceinM + " meters.)</p>");
 
                 endTrip("success", watchID, watcherPhoneNumber);
             }
@@ -113,13 +157,13 @@ function endTrip(status, watchID, watcherPhoneNumber) {
 
     // Stop watching the user's location
     navigator.geolocation.clearWatch(watchID);
-    $('.notifications .container').prepend("<p>GPS tracking has ended.</p>").fadeIn();
+    addNotification("<p>GPS tracking has ended.</p>");
     console.log("GPS tracking has ended.");
 
     switch(status) {
         case "success":
             SMSBody = "The user successfully reached their destination.";
-            addNotification("The user successfully reached their destination.");
+            addNotification("<p>The user successfully reached their destination.</p>");
             $('.trip-status .status').html("Ended. Destination reached.").fadeIn();
             break;
         case "ended_by_user":
@@ -131,6 +175,9 @@ function endTrip(status, watchID, watcherPhoneNumber) {
             SMSBody = "GPS tracking of the user you were watching ended. The user did not necessarily reach their destination.";
             break;
     }
+
+    $('.end-trip.button').hide();
+    $('.start-trip.button').show();
 
     // Send a text message to any trip watchers.
     console.log("Now sending a text message to " + watcherPhoneNumber + ".");

@@ -2,12 +2,37 @@
     display: none;
 }
 
+/** Buttons **/
+
+.button.start-trip a {
+    background: #5cb85c;
+}
+.button.start-trip a:hover {
+}
+.button.end-trip a {
+    background: #d9534f;
+}
+.button.end-trip a:hover {
+}
+.button.send-emergency-sms a {
+    background: #d9534f;
+}
+.button.send-emergency-sms a:hover {
+}
+.button.change-emergency-sms a {
+}
+.button.change-emergency-sms a:hover {
+}
+
+
+
+
 .trip-status {
     color: #d7daff;
 }
 
 .notifications .container p {
-    margin: 3px 0;
+    margin: 5px 0;
 }
 
 /****** Panes **********/

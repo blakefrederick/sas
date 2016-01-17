@@ -13,6 +13,8 @@ function addNotification(notification) {
     //    }
     //}, 2000);
 
-    $('.notifications .container').hide().append(notification).fadeIn(2500);
+    $(notification).hide().prependTo('.notifications .container').fadeIn(2000);
+
+   // $('.notifications .container').hide().append(notification).fadeIn(2500);
 
 }

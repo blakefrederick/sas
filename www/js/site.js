@@ -1,9 +1,17 @@
 $(document).ready( function() {
 
-  //var timer =  setInterval(currentTime, 1000);
+  // @TODO: Refactor everything
 
   /**
-   * Get a Trip by node ID.
+  * Set some intial values.
+  */
+  window.localStorage.setItem("watcherPhoneNumber", "Not yet set");
+  window.localStorage.setItem("userDestination", "Not yet set");
+  window.localStorage.setItem("emergencySMS", "7783232713");
+
+
+  /**
+   * Get a Trip by node ID Handler
    */
   $('.get-trip.button').click(function(e) {
 
@@ -16,7 +24,7 @@ $(document).ready( function() {
 
 
   /**
-   * Post Coordinates
+   * Post Coordinates Handler
    */
   $('.get-trip-destination.button').click(function(e) {
 
@@ -28,64 +36,69 @@ $(document).ready( function() {
 
 
   /**
-   * Start Trip
+   * Start Trip Handler
    */
   $('.start-trip.button').click(function(e) {
 
-    var userDestination = '';
-    var watcherPhoneNumber = '7783232713';
-
-    navigator.geolocation.getCurrentPosition(
-      function(position) {
-
-        //addNotification("<p>Getting current GPS position.</p>");
-
-        // Ask the user for their trip destination
-        userDestination = promptUserDestination(position);
-        // Ask the user who to contact when the trip ends
-        watcherPhoneNumber = promptWatcherPhoneNumber(watcherPhoneNumber);
-
-        addNotification("<p>An SMS will be sent to " + watcherPhoneNumber + " when your trip is complete.</p>");
-        addNotification("<p>Your trip will end when you reach your destination or if you end the trip manually.</p>");
-
-        createTrip(userDestination, watcherPhoneNumber);
-        trackCoordinates(userDestination, watcherPhoneNumber);
-
-        addNotification("<p>Trip initiated.</p>");
-
-        $('.trip-status .status').hide().html("Started").fadeIn("slow");
-        window.setTimeout(function() {
-          $('.trip-status .status').hide().html("In Progress").fadeIn("slow");
-        }, 1500);
-
-        // Allow the user to end their trip.
-        $('.button.start-trip').hide();
-        $(".button.end-trip").show();
-      },
-
-      function(error) {
-        addNotification("<p>Error. Could not get initial GPS location");
-      }
-    );
+    startTrip();
 
   });
 
+
   /**
-   * End Trip
+   * End Trip Handler
    */
   $('.end-trip.button').click(function(e) {
 
     var watcherPhoneNumber = window.localStorage.getItem('watcherPhoneNumber');
     var watchID = window.localStorage.getItem('watchID');
 
-    $('.end-trip.button').hide();
-    $('.start-trip.button').show();
-
     endTrip("ended_by_user", watchID, watcherPhoneNumber);
 
     // Delete local storage items associated with the trip.
 
   });
+
+
+  /**
+   *  Get Trip Destination Handler
+   */
+  $('.get-trip-destination.button a').click(function(e) {
+    $("<p>" + window.localStorage.getItem("userDestination") + "</p>").hide().insertAfter($(this)).fadeIn("slow");
+  });
+
+
+  /**
+   * Get Watcher Phone Number Handler
+   */
+  $('.get-watcher-phone-number.button a').click(function(e) {
+    $("<p>" + window.localStorage.getItem("watcherPhoneNumber") + "</p>").hide().insertAfter($(this)).fadeIn("slow");
+  });
+
+
+  /**
+   * Send Emergency SMS Handler
+   */
+  $('.send-emergency-sms.button').click(function(e) {
+    var emergencySMS = "7783232713";
+    emergencySMS = window.localStorage.getItem("emergencySMS");
+    var defaultMessage = "This is just a test, not an actual emergency.";
+
+    $(".emergency-send-status").hide().html("<p>Sending</p>").fadeIn("slow");
+
+    sendSMS(emergencySMS, defaultMessage);
+  });
+
+
+  /**
+   * Change Emergency SMS Handler
+   */
+  $('.change-emergency-sms.button').click(function(e) {
+    var emergencySMS = window.localStorage.getItem("emergencySMS");
+    var newEmergencySMS = prompt("Enter an emergency contact SMS", emergencySMS);
+    window.localStorage.setItem("emergencySMS", newEmergencySMS);
+  });
+
 
   function onDeviceReady() {
 
