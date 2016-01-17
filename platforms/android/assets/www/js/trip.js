@@ -67,14 +67,13 @@ function startTrip(){
           addNotification("<p>Your trip will end when you reach your destination or if you end the trip manually.</p>");
 
           createTrip(userDestination, watcherPhoneNumber);
-          trackCoordinates(userDestination, watcherPhoneNumber);
-
-          addNotification("<p>Trip initiated.</p>");
 
           $('.trip-status .status').hide().html("Started").fadeIn("slow");
-          window.setTimeout(function() {
-              $('.trip-status .status').hide().html("In Progress").fadeIn("slow");
-          }, 1500);
+          addNotification("<p>New trip initiated.</p>");
+
+          trackCoordinates(userDestination, watcherPhoneNumber);
+
+          $('.trip-status .status').hide().html("In Progress").fadeIn("slow");
 
           // Allow the user to end their trip.
           $('.button.start-trip').hide();
@@ -127,8 +126,6 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
             if(distanceInKM <= distanceThresholdInKM) {
                 console.log("You have reached your destination (" + distanceinM + " meters away).");
                 addNotification("<p>You have reached your destination (" + distanceinM + " meters away).</p>");
-                console.log("(The distance tolerance is set to " + distanceinM + " meters.)");
-                addNotification("<p>(The distance tolerance is set to " + distanceinM + " meters.)</p>");
 
                 endTrip("success", watchID, watcherPhoneNumber);
             }
@@ -149,7 +146,7 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
 /**
  * End a Trip
  *
- * Trigger some actions that occur upon succesfully reaching a destination.
+ * Trigger some actions that occur upon successfully reaching a destination.
  */
 function endTrip(status, watchID, watcherPhoneNumber) {
 
