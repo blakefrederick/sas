@@ -12,7 +12,7 @@ function sendSMS(phoneNumber, message) {
             $('.notifications .container').prepend("<p>SMS successfully sent to " + phoneNumber + ".</p>");
             // @TODO Refactor emergency send status into separate functions
             if($(".emergency-send-status p").html() == "Sending") {
-              $(".emergency-send-status").hide().html("<p>SMS sent to </p> + phoneNumber").fadeIn("slow");
+              $(".emergency-send-status").hide().html("<p>SMS sent to " + phoneNumber + "</p>").fadeIn("slow");
             }
         };
         var error = function (e) {
@@ -20,7 +20,7 @@ function sendSMS(phoneNumber, message) {
           $('.notifications .container').prepend("<p>SMS messaged failed to send to " + phoneNumber + " with error " + e + "</p>");
           // @TODO Refactor emergency send status into separate functions
           if($(".emergency-send-status p").html() == "Sending") {
-            $(".emergency-send-status").hide().html("<p>Failed to send SMS to </p>" + phoneNumber).fadeIn("slow");
+            $(".emergency-send-status").hide().html("<p>Failed to send SMS to " + phoneNumber + "</p>").fadeIn("slow");
           }
         };
         sms.send(phoneNumber, message, options, success, error);

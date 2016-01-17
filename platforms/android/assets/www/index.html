@@ -19,6 +19,7 @@
 <script src="js/trip.js"></script>
 <script src="js/sms.js"></script>
 <script src="js/notifications.js"></script>
+<script src="js/helper-functions.js"></script>
 <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
 <script type="text/javascript">
 		$(function() {
@@ -33,7 +34,7 @@
 	      	     	<div class="menu-ico"><a href="#menu"></a></div>
 					  <div class="profile_details">
 				    		   <div id="loginContainer">
-				                  <a id="loginButton" class=""><span>Me</span></a>   
+				                  <a id="loginButton" class=""><span>Blake</span></a>
 				                    <div id="loginBox">                
 				                      <form id="loginForm">
 				                        <fieldset id="body">
@@ -76,13 +77,14 @@
 				   <div class="button end-trip"><a>End Current Trip</a></div>
 				   <!--<div class="button track-coordinates"><a>Start Active GPS Tracking</a></div>-->
 				   <!--<br/>-->
-				   <div class="button get-trip"><a>Get a Trip</a></div>
 				   <div class="button get-trip-destination"><a>What's my destination?</a></div>
 				   <div class="button get-watcher-phone-number"><a>Who will receive notifications?</a></div>
 			   </div>
 
 			   <div class="pane trip-history">
 				   <h3>Trip History</h3>
+				   <div class="button get-most-recent-trip"><a>Get Most Recent Trip</a></div>
+				   <div class="most-recent-trip"></div>
 			   </div>
 
 			   <div class="pane">
@@ -101,8 +103,8 @@
 			   <div class="pane emergency">
 				   <h3>Emergency</h3>
 				   <div class="button send-emergency-sms"><a>Send Emergency SMS</a></div>
-				   <div class="button change-emergency-sms"><a>Change Emergency Contact</a></div>
 				   <div class="emergency-send-status"></div>
+				   <div class="button change-emergency-sms"><a>Change Emergency Contact</a></div>
 				   <br/>
 			   </div>
 		          

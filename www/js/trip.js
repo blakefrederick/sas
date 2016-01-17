@@ -162,13 +162,13 @@ function endTrip(status, watchID, watcherPhoneNumber) {
 
     switch(status) {
         case "success":
-            SMSBody = "The user successfully reached their destination.";
-            addNotification("<p>The user successfully reached their destination.</p>");
+            SMSBody = "Blake successfully reached his destination.";
+            addNotification("<p>You successfully reached your destination.</p>");
             $('.trip-status .status').html("Ended. Destination reached.").fadeIn();
             break;
         case "ended_by_user":
-            SMSBody = "The user manually ended their trip.";
-            addNotification("<p>The user ended the current trip.</p>");
+            SMSBody = "Blake manually ended his trip.";
+            addNotification("<p>You ended your trip.</p>");
             $('.trip-status .status').html("Ended by user").fadeIn();
             break;
         default:

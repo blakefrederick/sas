@@ -22,6 +22,29 @@ $(document).ready( function() {
 
   });
 
+  /**
+   * Get Most Recent Trip Handler
+   */
+  $('.get-most-recent-trip.button').click(function(e) {
+    getTrip("most-recent", processMostRecentTrip);
+  });
+
+  //@TODO Refactor this to be more generalized and move it out of here.
+  function processMostRecentTrip(trip) {
+    console.log("Got the most recent trip. Here it is:");
+    console.table(trip);
+
+    $('.get-most-recent-trip')
+      .hide()
+      .append("<p>Date: " + trip[0].created[0].value + "</p>")
+      .append("<p>User: Blake</p>") // @TODO Replace with actual user
+      .append("<p>ID: " + trip[0].uuid[0].value + "</p>")
+      .append("<p>Destination: " + trip[0].field_destination_coordinate[0].value + "</p>")
+      .append("<p>Watcher SMS: " + trip[0].field_watcher_phone_number[0].value + "</p>")
+      .fadeIn("slow");
+
+    addNotification("<p>Retrieved the most recent trip. ID: " + trip[0].uuid[0].value + "</p>");
+  }
 
   /**
    * Post Coordinates Handler

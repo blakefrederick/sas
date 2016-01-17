@@ -25,7 +25,7 @@ function getTrip(nid, successCallback) {
  *
  * Creates a Trip content type with a user destination.
  */
-function createTrip(userDestination) {
+function createTrip(userDestination, watcherPhoneNumber) {
     console.log("About to create a new trip.");
 
     var date = new Date();
@@ -44,6 +44,9 @@ function createTrip(userDestination) {
         ],
         "field_trip_status": [
             {"value": 0}
+        ],
+        "field_watcher_phone_number": [
+            {"value": watcherPhoneNumber}
         ]
     };
 
