@@ -1,6 +1,6 @@
 $(document).ready( function() {
 
-  var timer =  setInterval(currentTime, 1000);
+  //var timer =  setInterval(currentTime, 1000);
 
   /**
    * Get a Trip by node ID.
@@ -32,13 +32,60 @@ $(document).ready( function() {
    */
   $('.start-trip.button').click(function(e) {
 
-    navigator.geolocation.getCurrentPosition(function(position) {
-      // @TODO: Replace this with a Google maps selector
-      promptUserTripDetails(position);
-    });
+    var userDestination = '';
+    var watcherPhoneNumber = '7783232713';
+
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+
+        //addNotification("<p>Getting current GPS position.</p>");
+
+        // Ask the user for their trip destination
+        userDestination = promptUserDestination(position);
+        // Ask the user who to contact when the trip ends
+        watcherPhoneNumber = promptWatcherPhoneNumber(watcherPhoneNumber);
+
+        addNotification("<p>An SMS will be sent to " + watcherPhoneNumber + " when your trip is complete.</p>");
+        addNotification("<p>Your trip will end when you reach your destination or if you end the trip manually.</p>");
+
+        createTrip(userDestination, watcherPhoneNumber);
+        trackCoordinates(userDestination, watcherPhoneNumber);
+
+        addNotification("<p>Trip initiated.</p>");
+
+        $('.trip-status .status').hide().html("Started").fadeIn("slow");
+        window.setTimeout(function() {
+          $('.trip-status .status').hide().html("In Progress").fadeIn("slow");
+        }, 1500);
+
+        // Allow the user to end their trip.
+        $('.button.start-trip').hide();
+        $(".button.end-trip").show();
+      },
+
+      function(error) {
+        addNotification("<p>Error. Could not get initial GPS location");
+      }
+    );
 
   });
 
+  /**
+   * End Trip
+   */
+  $('.end-trip.button').click(function(e) {
+
+    var watcherPhoneNumber = window.localStorage.getItem('watcherPhoneNumber');
+    var watchID = window.localStorage.getItem('watchID');
+
+    $('.end-trip.button').hide();
+    $('.start-trip.button').show();
+
+    endTrip("ended_by_user", watchID, watcherPhoneNumber);
+
+    // Delete local storage items associated with the trip.
+
+  });
 
   function onDeviceReady() {
 

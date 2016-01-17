@@ -21,11 +21,11 @@ function getTrip(nid, successCallback) {
 }
 
 /**
- * Start a Trip
+ * Create a Trip
  *
  * Creates a Trip content type with a user destination.
  */
-function startTrip(userDestination) {
+function createTrip(userDestination) {
     console.log("About to create a new trip.");
 
     var date = new Date();
@@ -64,22 +64,4 @@ function startTrip(userDestination) {
             console.table(msg);
         }
     });
-}
-
-/**
- * End a Trip
- *
- * Trigger some actions that occur upon succesfully reaching a destination.
- */
-function endTrip(watchID, watcherPhoneNumber) {
-    // Stop watching the user's location
-    navigator.geolocation.clearWatch(watchID);
-    $('.notifications .container').prepend("<p>GPS tracking has ended.</p>");
-    console.log("GPS tracking has ended.");
-    // Send a text message to any trip watchers.
-    console.log("Now sending a text message to " + watcherPhoneNumber + ".");
-    $('.notifications .container').prepend("<p>Now sending a text message to " + watcherPhoneNumber + ".</p>");
-    sendSMS(watcherPhoneNumber);
-    // Change the status of the trip.
-    // API PATCH call goes here.
 }

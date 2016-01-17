@@ -1,0 +1,37 @@
+.button.end-trip {
+    display: none;
+}
+
+.trip-status {
+    color: #d7daff;
+}
+
+/****** Panes **********/
+
+.pane {
+    margin-top:15px;
+    background: #394264;
+    text-align: center;
+    padding:1em 0 0 0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    text-align: center;
+}
+.pane div {
+    margin: 20px 0;
+}
+.pane h3 {
+    color: #FFF;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+.pane canvas {
+    padding: 1em 0;
+    display: block;
+    margin: 0 auto;
+}
+.pane p {
+    color: #d7daff;
+}

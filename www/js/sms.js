@@ -1,6 +1,4 @@
-function sendSMS(phoneNumber) {
-        var message = "The user has reached their destination.";
-
+function sendSMS(phoneNumber, message) {
         var options = {
             replaceLineBreaks: false, // true to replace \n by a new line, false by default
             android: {

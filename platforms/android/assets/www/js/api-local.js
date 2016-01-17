@@ -25,7 +25,7 @@ function getTrip(nid, successCallback) {
  *
  * Creates a Trip content type with a user destination.
  */
-function startTrip(userDestination) {
+function createTrip(userDestination) {
     console.log("About to create a new trip.");
 
     var date = new Date();

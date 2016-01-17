@@ -5,17 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/main.css" rel="stylesheet" type="text/css" media="all"/>
+<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
+
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src="js/jquery.ulslide.js"></script>
 
+<script src="js/site.js"></script>
 <script src="js/api.js"></script>
 <script src="js/trip.js"></script>
 <script src="js/sms.js"></script>
-<script src="js/site.js"></script>
-<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
+<script src="js/notifications.js"></script>
 <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
 <script type="text/javascript">
 		$(function() {
@@ -66,17 +69,15 @@
 				   <br/>
 			   </div>
 
-			   <div class="pane">
+			   <div class="pane trip">
 				   <h3>Trip</h3>
-				   <br/>
+				   <div class="trip-status">Trip Status: <span class="status">Not Active</span></div>
 				   <div class="button start-trip"><a>Start a Trip</a></div>
-				   <br/>
+				   <div class="button end-trip"><a>End Current Trip</a></div>
 				   <!--<div class="button track-coordinates"><a>Start Active GPS Tracking</a></div>-->
 				   <!--<br/>-->
 				   <div class="button get-trip"><a>Get a Trip</a></div>
-				   <br/>
 				   <div class="button get-trip-destination"><a>Get Current Trip Destination</a></div>
-				   <br/>
 			   </div>
 
 			   <div class="pane">

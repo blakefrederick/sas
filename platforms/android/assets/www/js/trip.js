@@ -6,9 +6,31 @@ function promptUserTripDetails(position) {
     var userDestination = prompt("Please enter your GPS destination [latitude,longitude]", position.coords.latitude + ", " + position.coords.longitude);
     var watcherPhoneNumber = prompt("Your phone will send an SMS when you arrive at your destination. Please enter the phone number to send the SMS to. (with area code and no spaces or dashes)", "7783232713");
 
-    startTrip(userDestination, watcherPhoneNumber);
+    window.localStorage.setItem('watcherPhoneNumber', watcherPhoneNumber);
+
+    // @Todo: Pull these function calls out of this function and put them in the Start Trip click handler.
+    createTrip(userDestination, watcherPhoneNumber);
     trackCoordinates(userDestination, watcherPhoneNumber);
 }
+
+
+function promptUserDestination(defaultPosition) {
+    var userDestination = prompt("Please enter your GPS destination [latitude,longitude]", defaultPosition.coords.latitude + ", " + defaultPosition.coords.longitude);
+
+    //window.localStorage.setItem('userDestination', userDestination);
+
+    return userDestination;
+}
+
+
+function promptWatcherPhoneNumber(defaultWatcherPhoneNumber) {
+    var watcherPhoneNumber = prompt("Please enter a phone number to send an SMS to once your trip is complete (inc. area code, no spaces or dashes)", defaultWatcherPhoneNumber);
+
+    window.localStorage.setItem('watcherPhoneNumber', watcherPhoneNumber);
+
+    return watcherPhoneNumber;
+}
+
 
 function getUserDestination(trip) {
     console.log("User destination is: " + trip[0].field_destination_coordinate[0].value);
@@ -59,12 +81,12 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
 
 
             if(distanceInKM <= distanceThresholdInKM) {
-                console.log("The distance tolerance is set to " + (distanceInKM/1000).toFixed(2) + " meters.");
-                $('.notifications .container').prepend("<p>The distance tolerance is set to " + (distanceInKM/1000).toFixed(2) + " meters.</p>");
-                console.log("You have reached your destination (" + (distanceInKM/1000).toFixed(2) + " meters away).");
-                $('.notifications .container').prepend("<p>You have reached your destination (" + (distanceInKM/1000).toFixed(2) + " meters away).</p>");
+                console.log("You have reached your destination (" + (distanceInKM/1000).toFixed(4) + " meters away).");
+                addNotification("<p>You have reached your destination (" + (distanceInKM/1000).toFixed(4) + " meters away).</p>");
+                console.log("(The distance tolerance is set to " + (distanceInKM/1000).toFixed(4) + " meters.)");
+                addNotification("<p>(The distance tolerance is set to " + (distanceInKM/1000).toFixed(4) + " meters.)</p>");
 
-                endTrip(watchID, watcherPhoneNumber);
+                endTrip("success", watchID, watcherPhoneNumber);
             }
         },
         function(error){
@@ -76,6 +98,47 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
         }
     );
 
+    window.localStorage.setItem('watchID', watchID);
+
+}
+
+/**
+ * End a Trip
+ *
+ * Trigger some actions that occur upon succesfully reaching a destination.
+ */
+function endTrip(status, watchID, watcherPhoneNumber) {
+
+    var SMSBody = '';
+
+    // Stop watching the user's location
+    navigator.geolocation.clearWatch(watchID);
+    $('.notifications .container').prepend("<p>GPS tracking has ended.</p>").fadeIn();
+    console.log("GPS tracking has ended.");
+
+    switch(status) {
+        case "success":
+            SMSBody = "The user successfully reached their destination.";
+            addNotification("The user successfully reached their destination.");
+            $('.trip-status .status').html("Ended. Destination reached.").fadeIn();
+            break;
+        case "ended_by_user":
+            SMSBody = "The user manually ended their trip.";
+            addNotification("<p>The user ended the current trip.</p>");
+            $('.trip-status .status').html("Ended by user").fadeIn();
+            break;
+        default:
+            SMSBody = "GPS tracking of the user you were watching ended. The user did not necessarily reach their destination.";
+            break;
+    }
+
+    // Send a text message to any trip watchers.
+    console.log("Now sending a text message to " + watcherPhoneNumber + ".");
+    addNotification("<p>Now sending a text message to " + watcherPhoneNumber + ".</p>");
+    sendSMS(watcherPhoneNumber, SMSBody);
+
+    // Change the status of the trip.
+    // API PATCH call goes here.
 }
 
 
