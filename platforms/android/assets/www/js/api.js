@@ -37,7 +37,7 @@ function createTrip(userDestination, watcherPhoneNumber) {
             }
         },
         "title": [
-            {"value": "Trip " + date.getMinutes()}
+            {"value": "User Trip Dated " + date.getDate()}
         ],
         "field_destination_coordinate": [
             {"value": userDestination}

@@ -53,6 +53,9 @@ function startTrip(){
     var userDestination = '';
     var watcherPhoneNumber = '7783232713';
 
+    startTripTimer();
+    setInterval(updateTripTimer(), 500);
+
     navigator.geolocation.getCurrentPosition(
       function(position) {
 
@@ -217,8 +220,19 @@ function distance(lat1, lon1, lat2, lon2) {
 }
 
 /**
- * Helper function to convert degrees to radians.
+ * Convert degrees to radians.
  */
 function toRad(degrees){
     return degrees * Math.PI / 180;
+}
+
+/**
+ * Start the Trip Timer
+ */
+function startTripTimer() {
+  window.localStorage.setItem("tripStart", Date.now())
+}
+
+function updateTripTimer() {
+
 }
