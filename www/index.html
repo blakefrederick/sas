@@ -63,16 +63,10 @@
 	    <div class="wrap">  		 
 	       <div class="column_left">
 
-			   <div class="pane notifications">
-				   <h3>Notifications</h3>
-				   <br/>
-				   <div class="container"></div>
-				   <br/>
-			   </div>
-
 			   <div class="pane trip">
 				   <h3>Trip Management</h3>
-				   <div class="trip-status">Trip Status: <span class="status">Not Active</span></div>
+				   <div class="trip-status"><p>Trip Status: <span class="status">Not Active</span></p></div>
+				   <div><p class="distance-remaining"></p></div>
 				   <div class="button start-trip"><a>Start a New Trip</a></div>
 				   <div class="button end-trip"><a>End Current Trip</a></div>
 				   <!--<div class="button track-coordinates"><a>Start Active GPS Tracking</a></div>-->
@@ -81,14 +75,27 @@
 				   <div class="button get-watcher-phone-number"><a>Who will receive notifications?</a></div>
 			   </div>
 
+			   <div class="pane notifications">
+				   <h3>Trip Notifications</h3>
+				   <div class="container"></div>
+			   </div>
+
 			   <div class="pane trip-history">
 				   <h3>Trip History</h3>
 				   <div class="button get-most-recent-trip"><a>Get Most Recent Trip</a></div>
 				   <div class="most-recent-trip"></div>
 			   </div>
 
-			   <div class="pane">
-				   <h3>Location Debug Info</h3>
+			   <div class="pane emergency">
+				   <h3>Emergency</h3>
+				   <div class="button send-emergency-sms"><a>Send Emergency SMS</a></div>
+				   <div class="emergency-send-status"></div>
+				   <div class="button change-emergency-sms"><a>Change Emergency Contact</a></div>
+				   <br/>
+			   </div>
+
+			   <div class="pane debug">
+				   <h3>Location Info</h3>
 				   <br/>
 				   <p class="device-ready">Device Not Ready</p>
 				   <br/>
@@ -100,14 +107,6 @@
 				   <br/>
 			   </div>
 
-			   <div class="pane emergency">
-				   <h3>Emergency</h3>
-				   <div class="button send-emergency-sms"><a>Send Emergency SMS</a></div>
-				   <div class="emergency-send-status"></div>
-				   <div class="button change-emergency-sms"><a>Change Emergency Contact</a></div>
-				   <br/>
-			   </div>
-		          
 		          		<div class="social_network_likes">
 				      		<ul>
 				      			<li><a href="#" class="facebook"><i><img src="images/facebook_icon.png" alt=""></i> <span>248k</span></a></li>

@@ -13,8 +13,9 @@ function addNotification(notification) {
     //    }
     //}, 2000);
 
-    $(notification).hide().prependTo('.notifications .container').fadeIn(2000);
+    var displayedNotification = $(notification).hide().prependTo('.notifications .container').fadeIn(2000);
 
-   // $('.notifications .container').hide().append(notification).fadeIn(2500);
-
+    setTimeout(function(){
+        displayedNotification.fadeOut(4000);
+    }, 9000);
 }

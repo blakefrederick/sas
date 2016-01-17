@@ -114,7 +114,7 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
             var destinationCoordinates = getCoordinates(userDestination);
             var distanceInKM = distance(currentCoordinates["lat"], currentCoordinates["lon"],
                                         destinationCoordinates["lat"], destinationCoordinates["lon"]);
-            var distanceinM = (distanceInKM * 1000).toFixed(6);
+            var distanceinM = (distanceInKM * 1000).toFixed(2);
 
             console.log("Distance remaining: " + (distanceInKM/1000).toFixed(6) + " M.");
 
