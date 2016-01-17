@@ -87,7 +87,10 @@ $(document).ready( function() {
    *  Get Trip Destination Handler
    */
   $('.get-trip-destination.button a').click(function(e) {
-    $("<p>" + window.localStorage.getItem("userDestination") + "</p>").hide().insertAfter($(this)).fadeIn("slow");
+    var displayedDestination = $("<p>" + window.localStorage.getItem("userDestination") + "</p>").hide().insertAfter($(this)).fadeIn("slow");
+    setTimeout(function() {
+      displayedDestination.fadeOut("slow");
+    }, 2000);
   });
 
 
@@ -95,7 +98,10 @@ $(document).ready( function() {
    * Get Watcher Phone Number Handler
    */
   $('.get-watcher-phone-number.button a').click(function(e) {
-    $("<p>" + window.localStorage.getItem("watcherPhoneNumber") + "</p>").hide().insertAfter($(this)).fadeIn("slow");
+    var displayedPhoneNumber = $("<p>" + window.localStorage.getItem("watcherPhoneNumber") + "</p>").hide().insertAfter($(this)).fadeIn("slow");
+    setTimeout(function() {
+      displayedPhoneNumber.fadeOut("slow");
+    }, 2000);
   });
 
 
@@ -123,6 +129,9 @@ $(document).ready( function() {
   });
 
 
+  /**
+   *  Device is ready
+   */
   function onDeviceReady() {
 
     console.log("Device ready");
@@ -134,7 +143,7 @@ $(document).ready( function() {
       // just to show how to access latitute and longitude
       var location = [position.coords.latitude, position.coords.longitude];
       console.log("Got location. Initial position: " + position.coords.latitude);
-      $('.first-position').html("First recorded position: " + location[0] + ", " + location[1]);
+      $('.first-position').html("First position: " + location[0] + ", " + location[1]);
       $('.current-position').html("Current position: " + location[0] + ", " + location[1]);
     },
     function(error) {

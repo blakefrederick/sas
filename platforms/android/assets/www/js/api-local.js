@@ -21,14 +21,15 @@ function getTrip(nid, successCallback) {
 }
 
 /**
- * Start a Trip
+ * Create a Trip
  *
  * Creates a Trip content type with a user destination.
  */
-function createTrip(userDestination) {
+function createTrip(userDestination, watcherPhoneNumber) {
     console.log("About to create a new trip.");
 
     var date = new Date();
+    var title = "User Trip Dated " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 
     var requestObject = {
         "_links": {
@@ -37,13 +38,16 @@ function createTrip(userDestination) {
             }
         },
         "title": [
-            {"value": "Trip " + date.getMinutes()}
+            {"value": title}
         ],
         "field_destination_coordinate": [
             {"value": userDestination}
         ],
         "field_trip_status": [
             {"value": 0}
+        ],
+        "field_watcher_phone_number": [
+            {"value": watcherPhoneNumber}
         ]
     };
 
@@ -64,13 +68,4 @@ function createTrip(userDestination) {
             console.table(msg);
         }
     });
-}
-
-/**
- * End a Trip
- *
- * Trigger some actions that occur upon succesfully reaching a destination.
- */
-function endTrip() {
-
 }

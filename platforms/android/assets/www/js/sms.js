@@ -9,7 +9,7 @@ function sendSMS(phoneNumber, message) {
 
         var success = function () {
             console.log('SMS successfully sent to ' + phoneNumber);
-            $('.notifications .container').prepend("<p>SMS successfully sent to " + phoneNumber + ".</p>");
+            addNotification("<p>SMS successfully sent to " + phoneNumber + ".</p>");
             // @TODO Refactor emergency send status into separate functions
             if($(".emergency-send-status p").html() == "Sending") {
               $(".emergency-send-status").hide().html("<p>SMS sent to " + phoneNumber + "</p>").fadeIn("slow");

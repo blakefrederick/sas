@@ -6,7 +6,7 @@
  */
 function getTrip(nid, successCallback) {
     $.ajax({
-        url: "http://ssecurity.local/trip/" + nid,
+        url: "http://sas.blakefrederick.com/trip/" + nid,
         success: function(trip) {
             console.log("Successfully got a trip.");
             console.log("Attempting to call successCallback: " + successCallback);
@@ -34,7 +34,7 @@ function createTrip(userDestination, watcherPhoneNumber) {
     var requestObject = {
         "_links": {
             "type": {
-                "href": "http://ssecurity.local/rest/type/node/trip"
+                "href": "http://sas.blakefrederick.com/rest/type/node/trip"
             }
         },
         "title": [
@@ -55,10 +55,10 @@ function createTrip(userDestination, watcherPhoneNumber) {
         type:"POST",
         headers: {
             "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
-            "X-CSRF-Token": 'F19EmnoX0RMpy9g7zvKsIRLRG6QK5a_t4mYYS9kIJtE',
+            "X-CSRF-Token": 'r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU',
             "Content-Type": 'application/hal+json'
         },
-        url: "http://ssecurity.local/entity/node",
+        url: "http://sas.blakefrederick.com/entity/node",
         data: JSON.stringify(requestObject),
         success: function(msg) {
             console.log("Successfully created a new trip.");
