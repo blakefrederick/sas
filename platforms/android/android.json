@@ -19,6 +19,14 @@
                         {
                             "xml": "<feature name=\"Sms\"><param name=\"android-package\" value=\"com.cordova.plugins.sms.Sms\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BackgroundMode\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.background.BackgroundMode\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"KeepRunning\" value=\"true\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -38,6 +46,12 @@
                             "xml": "<uses-feature android:name=\"android.hardware.telephony\" android:required=\"false\" />",
                             "count": 1
                         }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<service android:name=\"de.appplant.cordova.plugin.background.ForegroundService\" />",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -55,6 +69,9 @@
         },
         "com.cordova.plugins.sms": {
             "PACKAGE_NAME": "com.blake.workshop"
+        },
+        "de.appplant.cordova.plugin.background-mode": {
+            "PACKAGE_NAME": "com.ssecurity.workshop"
         }
     },
     "dependent_plugins": {},
@@ -80,12 +97,22 @@
             "clobbers": [
                 "window.sms"
             ]
+        },
+        {
+            "file": "plugins/de.appplant.cordova.plugin.background-mode/www/background-mode.js",
+            "id": "de.appplant.cordova.plugin.background-mode.BackgroundMode",
+            "pluginId": "de.appplant.cordova.plugin.background-mode",
+            "clobbers": [
+                "cordova.plugins.backgroundMode",
+                "plugin.backgroundMode"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.0",
         "cordova-plugin-device": "1.1.0",
         "cordova-plugin-console": "1.0.2",
-        "com.cordova.plugins.sms": "0.1.6"
+        "com.cordova.plugins.sms": "0.1.6",
+        "de.appplant.cordova.plugin.background-mode": "0.6.4"
     }
 }

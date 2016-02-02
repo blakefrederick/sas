@@ -21,6 +21,15 @@ module.exports = [
         "clobbers": [
             "window.sms"
         ]
+    },
+    {
+        "file": "plugins/de.appplant.cordova.plugin.background-mode/www/background-mode.js",
+        "id": "de.appplant.cordova.plugin.background-mode.BackgroundMode",
+        "pluginId": "de.appplant.cordova.plugin.background-mode",
+        "clobbers": [
+            "cordova.plugins.backgroundMode",
+            "plugin.backgroundMode"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -29,7 +38,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.2.0",
     "cordova-plugin-device": "1.1.0",
     "cordova-plugin-console": "1.0.2",
-    "com.cordova.plugins.sms": "0.1.6"
+    "com.cordova.plugins.sms": "0.1.6",
+    "de.appplant.cordova.plugin.background-mode": "0.6.4"
 }
 // BOTTOM OF METADATA
 });

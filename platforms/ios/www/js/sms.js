@@ -1,6 +1,4 @@
-function sendSMS(phoneNumber) {
-        var message = "The user reached their destination.";
-
+function sendSMS(phoneNumber, message) {
         var options = {
             replaceLineBreaks: false, // true to replace \n by a new line, false by default
             android: {
@@ -10,10 +8,20 @@ function sendSMS(phoneNumber) {
         };
 
         var success = function () {
-            alert('SMS successfully sent to' + phoneNumber);
+            console.log('SMS successfully sent to ' + phoneNumber);
+            addNotification("<p>SMS successfully sent to " + phoneNumber + ".</p>");
+            // @TODO Refactor emergency send status into separate functions
+            if($(".emergency-send-status p").html() == "Sending") {
+              $(".emergency-send-status").hide().html("<p>SMS sent to " + phoneNumber + "</p>").fadeIn("slow");
+            }
         };
         var error = function (e) {
-            alert('SMS send message failed:' + e);
+          console.log("SMS messaged failed to send to " + phoneNumber + " with error " + e);
+          $('.notifications .container').prepend("<p>SMS messaged failed to send to " + phoneNumber + " with error " + e + "</p>");
+          // @TODO Refactor emergency send status into separate functions
+          if($(".emergency-send-status p").html() == "Sending") {
+            $(".emergency-send-status").hide().html("<p>Failed to send SMS to " + phoneNumber + "</p>").fadeIn("slow");
+          }
         };
         sms.send(phoneNumber, message, options, success, error);
 }

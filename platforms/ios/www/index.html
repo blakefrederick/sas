@@ -5,17 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/main.css" rel="stylesheet" type="text/css" media="all"/>
+<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
+
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src="js/jquery.ulslide.js"></script>
 
+<script src="js/site.js"></script>
 <script src="js/api.js"></script>
 <script src="js/trip.js"></script>
 <script src="js/sms.js"></script>
-<script src="js/site.js"></script>
-<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
+<script src="js/notifications.js"></script>
+<script src="js/helper-functions.js"></script>
 <script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
 <script type="text/javascript">
 		$(function() {
@@ -30,12 +34,12 @@
 	      	     	<div class="menu-ico"><a href="#menu"></a></div>
 					  <div class="profile_details">
 				    		   <div id="loginContainer">
-				                  <a id="loginButton" class=""><span>Me</span></a>   
+				                  <a id="loginButton" class=""><span>Blake</span></a>
 				                    <div id="loginBox">                
 				                      <form id="loginForm">
 				                        <fieldset id="body">
 				                            <div class="user-info">
-							        			<h4>Hello,<a href="#"> Username</a></h4>
+							        			<h4>Hello,<a href="#"> Blake</a></h4>
 							        			<ul>
 							        				<li class="profile active"><a href="#">Profile </a></li>
 							        				<li class="logout"><a href="#"> Logout</a></li>
@@ -59,21 +63,38 @@
 	    <div class="wrap">  		 
 	       <div class="column_left">
 
-			   <div class="pane">
-				   <h3>Trip</h3>
-				   <br/>
-				   <div class="button start-trip"><a>Start a Trip</a></div>
-				   <br/>
-				   <div class="button track-coordinates"><a>Start Active GPS Tracking</a></div>
-				   <br/>
-				   <div class="button get-trip"><a>Get a Trip</a></div>
-				   <br/>
-				   <div class="button get-trip-destination"><a>Get Current Trip Destination</a></div>
+			   <div class="pane notifications">
+				   <h3>Notifications</h3>
+				   <div class="container"></div>
+			   </div>
+
+			   <div class="pane trip">
+				   <h3>Trip Management</h3>
+				   <div class="trip-status"><p>Trip Status: <span class="status">Not Active</span></p></div>
+				   <div><p class="distance-remaining"></p></div>
+				   <!--<div class="time-elapsed"></div>-->
+				   <div class="button start-trip"><a>Start a New Trip</a></div>
+				   <div class="button end-trip"><a>End Current Trip</a></div>
+				   <div class="button get-trip-destination"><a>What's my destination?</a></div>
+				   <div class="button get-watcher-phone-number"><a>Who will receive notifications?</a></div>
+			   </div>
+
+			   <div class="pane trip-history">
+				   <h3>Trip History</h3>
+				   <div class="button get-most-recent-trip"><a>Get Most Recent Trip</a></div>
+				   <div class="most-recent-trip"></div>
+			   </div>
+
+			   <div class="pane emergency">
+				   <h3>Emergency</h3>
+				   <div class="button send-emergency-sms"><a>Send Emergency SMS</a></div>
+				   <div class="emergency-send-status"></div>
+				   <div class="button change-emergency-sms"><a>Change Emergency Contact</a></div>
 				   <br/>
 			   </div>
 
-			   <div class="pane">
-				   <h3>Location Debug Info</h3>
+			   <div class="pane debug">
+				   <h3>Location Info</h3>
 				   <br/>
 				   <p class="device-ready">Device Not Ready</p>
 				   <br/>
@@ -81,10 +102,10 @@
 				   <p class="current-position">Current position: not set</p>
 				   <p class="user-destination"> User destination: not set</p>
 				   <p class="distance-remaining">Distance remaining: not set</p>
-				   <p class="timer">Timer: not set</p>
+				   <!--<p class="timer">Timer: not set</p>-->
 				   <br/>
 			   </div>
-		          
+
 		          		<div class="social_network_likes">
 				      		<ul>
 				      			<li><a href="#" class="facebook"><i><img src="images/facebook_icon.png" alt=""></i> <span>248k</span></a></li>
@@ -101,8 +122,8 @@
 		         <div class="profile_picture">
 		        	<a href=""><img src="images/profile_img150x150.jpg" alt="" />	</a>		         
 		            <div class="profile_picture_name">
-		            	<h2>Anne Hathaway</h2>
-		            	<p>Lorem ipsum dolor sit amet consectetur adipisicing </p>
+		            	<h2>Blake Frederick</h2>
+		            	<p>You have been a user for 8 months and you have successfully completed 89 trips. </p>
 		            </div>
 		             <span><a href="#"> <img src="images/follow_user.png" alt="" /> </a></span>
 		          </div>
@@ -164,19 +185,19 @@
             <div class="column_right">
             	<div class="column_right_grid">
                  <div class="newsletter">
-				   <h3>Join the newsletter</h3>
+				   <h3>Upgrade to Premium</h3>
 					    <form>
 					    	<span>
 					 	     <i><img src="images/mail.png" alt="" /></i>
 					 	     <input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
 					 	    </span>			 	    
-					 		<input type="submit" class="my_button" value="Subscribe">
+					 		<input type="submit" class="my_button" value="Upgrade">
 					 	</form>
 				   </div>
 			   </div>
 				 <div class="column_right_grid sign-in">
 				 	<div class="sign_in">
-				       <h3>Sign in to your account</h3>
+				       <h3>Connect to Google Maps</h3>
 					    <form>
 					    	<span>
 					 	    <i><img src="images/mail.png" alt="" /></i><input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">

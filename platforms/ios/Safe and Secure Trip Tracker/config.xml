@@ -26,6 +26,9 @@
     <feature name="Sms">
         <param name="ios-package" value="Sms" />
     </feature>
+    <feature name="BackgroundMode">
+        <param name="ios-package" value="APPBackgroundMode" />
+    </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <name>Safe and Secure Trip Tracker</name>

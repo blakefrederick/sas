@@ -1,0 +1,69 @@
+.button.end-trip {
+    display: none;
+}
+
+/** Buttons **/
+
+.button.start-trip a {
+    background: #5cb85c;
+}
+.button.start-trip a:hover {
+}
+.button.end-trip a {
+    background: #d9534f;
+}
+.button.end-trip a:hover {
+}
+.button.send-emergency-sms a {
+    background: #d9534f;
+}
+.button.send-emergency-sms a:hover {
+}
+.button.change-emergency-sms a {
+}
+.button.change-emergency-sms a:hover {
+}
+
+
+
+
+/*.trip-status {*/
+    /*color: #d7daff;*/
+/*}*/
+
+.notifications .container p {
+    margin: 5px 0;
+}
+
+/****** Panes **********/
+
+.pane {
+    margin-top:15px;
+    background: #394264;
+    text-align: center;
+    padding: 1em 0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    text-align: center;
+}
+.pane div {
+    margin: 10px 0;
+}
+.pane div.button {
+    margin: 20px 0;
+}
+.pane h3 {
+    color: #FFF;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+.pane canvas {
+    padding: 1em 0;
+    display: block;
+    margin: 0 auto;
+}
+.pane p {
+    color: #d7daff;
+}

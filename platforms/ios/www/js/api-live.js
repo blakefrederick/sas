@@ -1,11 +1,3 @@
-function getDomain() {
-    return "http://sas.blakefrederick.com/"; // live
-}
-
-function getXCSRFToken() {
-    return "r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU"; //live
-}
-
 /**
  * Get a Trip
  *
@@ -29,14 +21,15 @@ function getTrip(nid, successCallback) {
 }
 
 /**
- * Start a Trip
+ * Create a Trip
  *
  * Creates a Trip content type with a user destination.
  */
-function startTrip(userDestination) {
+function createTrip(userDestination, watcherPhoneNumber) {
     console.log("About to create a new trip.");
 
     var date = new Date();
+    var title = "User Trip Dated " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 
     var requestObject = {
         "_links": {
@@ -45,28 +38,24 @@ function startTrip(userDestination) {
             }
         },
         "title": [
-            {"value": "Trip " + date.getMinutes()}
+            {"value": title}
         ],
         "field_destination_coordinate": [
             {"value": userDestination}
         ],
         "field_trip_status": [
             {"value": 0}
+        ],
+        "field_watcher_phone_number": [
+            {"value": watcherPhoneNumber}
         ]
     };
 
     $.ajax({
         type:"POST",
-        //beforeSend: function (request)
-        //{
-        //    request.setRequestHeader("Authorization", "Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=");
-        //    request.setRequestHeader("X-CSRF-Token", "4n9aNNxPzbn3Lrb99ySVexBucIfKm8MmN8sE7LUAZTU");
-        //    request.setRequestHeader("Content-Type", "application/hal+json");
-        //},
         headers: {
             "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
-            //"X-CSRF-Token": 'ZxpVJi1QFGR1EAgrNQ8ZuZDkq-5uYie-gukYpcZoKFQ', // local
-            "X-CSRF-Token": 'r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU', // live
+            "X-CSRF-Token": 'r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU',
             "Content-Type": 'application/hal+json'
         },
         url: "http://sas.blakefrederick.com/entity/node",
@@ -79,13 +68,4 @@ function startTrip(userDestination) {
             console.table(msg);
         }
     });
-}
-
-/**
- * End a Trip
- *
- * Trigger some actions that occur upon succesfully reaching a destination.
- */
-function endTrip() {
-
 }

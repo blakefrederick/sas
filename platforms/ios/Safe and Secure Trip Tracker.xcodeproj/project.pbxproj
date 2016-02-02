@@ -45,6 +45,8 @@
 		40760D81899F47BCA849EAA1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39D7053A587E47A98EAAB2D0 /* CoreLocation.framework */; };
 		839B4A2C2288447BAF8C67E0 /* Sms.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C6C65796F44658BB779B5D /* Sms.m */; };
 		41EA40A4B6644CBE9E247E8A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15304E1F094C4833AA8360C1 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		85A5E4B9DFA0449193C0EEE1 /* APPBackgroundMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 236FC6D03BF840EA954ECCC0 /* APPBackgroundMode.m */; };
+		BC56ED946AEE45EFA7051264 /* appbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4DB55A3D6A80434B95ACFA35 /* appbeep.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,9 @@
 		08C6C65796F44658BB779B5D /* Sms.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Sms.m"; path = "com.cordova.plugins.sms/Sms.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		D7B7EF5F74DE4C2F8C76C2E3 /* Sms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Sms.h"; path = "com.cordova.plugins.sms/Sms.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		15304E1F094C4833AA8360C1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		236FC6D03BF840EA954ECCC0 /* APPBackgroundMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "APPBackgroundMode.m"; path = "de.appplant.cordova.plugin.background-mode/APPBackgroundMode.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		D3E7C5FFA2424BBEB4817F7C /* APPBackgroundMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "APPBackgroundMode.h"; path = "de.appplant.cordova.plugin.background-mode/APPBackgroundMode.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		4DB55A3D6A80434B95ACFA35 /* appbeep.wav */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "appbeep.wav"; path = "appbeep.wav"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +199,7 @@
 				308D052D1370CCF300D202BF /* icons */,
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* Safe and Secure Trip Tracker-Info.plist */,
+				4DB55A3D6A80434B95ACFA35 /* appbeep.wav */,
 			);
 			name = Resources;
 			path = "Safe and Secure Trip Tracker/Resources";
@@ -230,6 +236,8 @@
 				9E9344918919464DB14E2CFD /* CDVLocation.h */,
 				08C6C65796F44658BB779B5D /* Sms.m */,
 				D7B7EF5F74DE4C2F8C76C2E3 /* Sms.h */,
+				236FC6D03BF840EA954ECCC0 /* APPBackgroundMode.m */,
+				D3E7C5FFA2424BBEB4817F7C /* APPBackgroundMode.h */,
 			);
 			name = Plugins;
 			path = "Safe and Secure Trip Tracker/Plugins";
@@ -383,6 +391,7 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
+				BC56ED946AEE45EFA7051264 /* appbeep.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +427,7 @@
 				7E69889410EE4A5BB786D6F3 /* CDVLogger.m in Sources */,
 				4AC8517D7D52416094B62089 /* CDVLocation.m in Sources */,
 				839B4A2C2288447BAF8C67E0 /* Sms.m in Sources */,
+				85A5E4B9DFA0449193C0EEE1 /* APPBackgroundMode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

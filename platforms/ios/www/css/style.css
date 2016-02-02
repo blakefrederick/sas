@@ -77,7 +77,7 @@ body{
 #loginButton span {
     color:#FFF; 
     font-size:1em; 
-    background:url(../images/loginArrow.png) no-repeat 26px 8px;
+    background:url(../images/loginArrow.png) no-repeat 50px 8px;
     display:block;
     padding: 0 25px 0 0;
     font-family: 'ambleregular';
@@ -258,34 +258,6 @@ fieldset#body {
 .menu_box_list li a.statistics:hover{
 	background-image:url(../images/statistics-hover.png);
 }
-
-/****** Panes **********/
-
-.pane {
-	margin-top:15px;
-	background: #394264;
-	text-align: center;
-	padding:1em 0 0 0;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	text-align:center;
-}
-.pane h3 {
-	color: #FFF;
-	font-size: 1.2em;
-	text-transform: uppercase;
-}
-.pane canvas {
-	padding:1em 0;
-	display:block;
-	margin:0 auto;
-}
-.pane p {
-	color: #9099b7;
-}
-
 
 /******* Carts *********/
 .chart{

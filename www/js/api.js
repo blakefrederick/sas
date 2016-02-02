@@ -69,3 +69,43 @@ function createTrip(userDestination, watcherPhoneNumber) {
         }
     });
 }
+
+
+var blah = (function() {
+    hey: 'hey';
+
+})();
+
+var event = {
+
+};
+
+var entry = {
+
+};
+
+var coordinates = {
+
+};
+
+(function() {
+
+    var api_url = "http://sas.blakefrederick.com";
+
+    var event = (function() {
+
+        function createEvent() {
+
+        }
+
+        function render() {
+
+        }
+
+        return {
+            createTrip: createTrip,
+        };
+
+    })();
+
+})();

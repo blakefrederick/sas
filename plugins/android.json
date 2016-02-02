@@ -18,6 +18,9 @@
         },
         "com.cordova.plugins.sms": {
             "PACKAGE_NAME": "com.blake.workshop"
+        },
+        "de.appplant.cordova.plugin.background-mode": {
+            "PACKAGE_NAME": "com.ssecurity.workshop"
         }
     },
     "dependent_plugins": {}

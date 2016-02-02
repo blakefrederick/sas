@@ -6,7 +6,7 @@
  */
 function getTrip(nid, successCallback) {
     $.ajax({
-        url: "http://ssecurity.local/trip/" + nid,
+        url: "http://sas.blakefrederick.com/trip/" + nid,
         success: function(trip) {
             console.log("Successfully got a trip.");
             console.log("Attempting to call successCallback: " + successCallback);
@@ -21,29 +21,33 @@ function getTrip(nid, successCallback) {
 }
 
 /**
- * Start a Trip
+ * Create a Trip
  *
  * Creates a Trip content type with a user destination.
  */
-function startTrip(userDestination) {
+function createTrip(userDestination, watcherPhoneNumber) {
     console.log("About to create a new trip.");
 
     var date = new Date();
+    var title = "User Trip Dated " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 
     var requestObject = {
         "_links": {
             "type": {
-                "href": "http://ssecurity.local/rest/type/node/trip"
+                "href": "http://sas.blakefrederick.com/rest/type/node/trip"
             }
         },
         "title": [
-            {"value": "Trip " + date.getMinutes()}
+            {"value": title}
         ],
         "field_destination_coordinate": [
             {"value": userDestination}
         ],
         "field_trip_status": [
-            {"value": 0}
+            {"value": 1}
+        ],
+        "field_watcher_phone_number": [
+            {"value": watcherPhoneNumber}
         ]
     };
 
@@ -51,10 +55,10 @@ function startTrip(userDestination) {
         type:"POST",
         headers: {
             "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
-            "X-CSRF-Token": 'F19EmnoX0RMpy9g7zvKsIRLRG6QK5a_t4mYYS9kIJtE',
+            "X-CSRF-Token": 'r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU',
             "Content-Type": 'application/hal+json'
         },
-        url: "http://ssecurity.local/entity/node",
+        url: "http://sas.blakefrederick.com/entity/node",
         data: JSON.stringify(requestObject),
         success: function(msg) {
             console.log("Successfully created a new trip.");
@@ -66,11 +70,42 @@ function startTrip(userDestination) {
     });
 }
 
-/**
- * End a Trip
- *
- * Trigger some actions that occur upon succesfully reaching a destination.
- */
-function endTrip() {
 
-}
+var blah = (function() {
+    hey: 'hey';
+
+})();
+
+var event = {
+
+};
+
+var entry = {
+
+};
+
+var coordinates = {
+
+};
+
+(function() {
+
+    var api_url = "http://sas.blakefrederick.com";
+
+    var event = (function() {
+
+        function createEvent() {
+
+        }
+
+        function render() {
+
+        }
+
+        return {
+            createTrip: createTrip,
+        };
+
+    })();
+
+})();
