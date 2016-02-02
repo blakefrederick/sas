@@ -88,14 +88,25 @@ var coordinates = {
 
 };
 
+
+var API = {
+    base_url: "http://sas.blakefrederick.com",
+};
+
+
+
+
+
 (function() {
 
-    var api_url = "http://sas.blakefrederick.com";
+
+
+    console.log(API);
 
     var event = (function() {
 
         function createEvent() {
-
+            console.log("creating an event");
         }
 
         function render() {
@@ -103,9 +114,16 @@ var coordinates = {
         }
 
         return {
-            createTrip: createTrip,
+            createEvent: createEvent,
         };
 
     })();
 
-})();
+
+
+
+    event.createEvent();
+
+}());
+
+
