@@ -2,6 +2,7 @@ function currentTime() {
     $('.timer').prepend("<p>" + new Date().getTime() + "</p>");
 }
 
+
 function promptUserTripDetails(position) {
     var userDestination = prompt("Please enter your GPS destination [latitude,longitude]", position.coords.latitude + ", " + position.coords.longitude);
     var watcherPhoneNumber = prompt("Your phone will send an SMS when you arrive at your destination. Please enter the phone number to send the SMS to. (with area code and no spaces or dashes)", "7783232713");
@@ -36,6 +37,7 @@ function getUserDestination(trip) {
     console.log("User destination is: " + trip[0].field_destination_coordinate[0].value);
     return trip[0].field_destination_coordinate[0].value;
 }
+
 
 function getMostRecentTrip() {
     getTrip("most-recent").then(function(trip) {
@@ -145,6 +147,81 @@ function trackCoordinates(userDestination, watcherPhoneNumber) {
     window.localStorage.setItem('watchID', watchID);
 
 }
+
+
+/**
+ * Get a Trip
+ *
+ * Get a trip based on trip nid, or pass in most-recent to get the most recent.
+ * @TODO: Validate that the user is getting a trip the belongs to them.
+ */
+function getTrip(nid, successCallback) {
+  $.ajax({
+    url: "http://sas.blakefrederick.com/trip/" + nid,
+    success: function(trip) {
+      console.log("Successfully got a trip.");
+      console.log("Attempting to call successCallback: " + successCallback);
+      console.log("This should be the returned trip: ");
+      console.table(trip);
+      successCallback(trip);
+    },
+    error: function() {
+      console.log("Error. Did not get trip for some reason.");
+    }
+  });
+}
+
+
+/**
+ * Create a Trip
+ *
+ * Creates a Trip content type with a user destination.
+ */
+function createTrip(userDestination, watcherPhoneNumber) {
+  console.log("About to create a new trip.");
+
+  var date = new Date();
+  var title = "User Trip Dated " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+
+  var requestObject = {
+    "_links": {
+      "type": {
+        "href": "http://sas.blakefrederick.com/rest/type/node/trip"
+      }
+    },
+    "title": [
+      {"value": title}
+    ],
+    "field_destination_coordinate": [
+      {"value": userDestination}
+    ],
+    "field_trip_status": [
+      {"value": 1}
+    ],
+    "field_watcher_phone_number": [
+      {"value": watcherPhoneNumber}
+    ]
+  };
+
+  $.ajax({
+    type:"POST",
+    headers: {
+      "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
+      "X-CSRF-Token": 'r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU',
+      "Content-Type": 'application/hal+json'
+    },
+    url: API.base_url + "/entity/node",
+    data: JSON.stringify(requestObject),
+    success: function(msg) {
+      console.log("Successfully created a new trip.");
+    },
+    error: function(msg) {
+      console.log("There was a problem. Failed to create a new trip.");
+      console.table(msg);
+    }
+  });
+}
+
 
 /**
  * End a Trip

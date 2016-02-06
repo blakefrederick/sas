@@ -83,6 +83,19 @@ $(document).ready( function() {
   });
 
 
+
+  /**
+   * Update Trip Handler
+   */
+  $('.update-trip.button').click(function(e) {
+
+    console.log(Event);
+    Event.updateEvent();
+
+  });
+
+
+
   /**
    *  Get Trip Destination Handler
    */
