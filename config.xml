@@ -35,11 +35,19 @@
     <feature name="Console">
         <param name="ios-package" value="CDVLogger" />
     </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.CameraLauncher" />
+    </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
 
     <allow-navigation href="http://*/*" />
 
     <plugin name="com.cordova.plugins.sms" spec="0.1.1" source="pgb" />
 
     <plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.3" />
+
+
 
 </widget>

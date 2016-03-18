@@ -24,6 +24,9 @@
         },
         "de.appplant.cordova.plugin.background-mode": {
             "PACKAGE_NAME": "com.ssecurity.workshop"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ssecurity.workshop"
         }
     },
     "dependent_plugins": {}

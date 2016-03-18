@@ -10,12 +10,17 @@
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
 <script type="text/javascript" src="js/login.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src="js/jquery.ulslide.js"></script>
+<script type="text/javascript" src="js/lib/base64.js"></script>
 
-<script src="js/api.js"></script>
-<script src="js/trip.js"></script>
+<script src="js/api/ajax.js"></script>
+<script src="js/api/event.js"></script>
+<script src="js/api/diary.js"></script>
+<script src="js/handlers.js"></script>
+<script src="js/init.js"></script>
 <script src="js/sms.js"></script>
 <script src="js/notifications.js"></script>
 <script src="js/helper-functions.js"></script>
@@ -25,7 +30,6 @@
 			$('nav#menu').mmenu();
 		});
 </script>
-<script src="js/site.js"></script>
 </head>
 <body>			       
 	    <div class="wrap">	 
@@ -69,15 +73,24 @@
 			   </div>
 
 			   <div class="pane trip">
-				   <h3>Trip Management</h3>
+				   <h3>Event Management</h3>
 				   <div class="trip-status"><p>Trip Status: <span class="status">Not Active</span></p></div>
 				   <div><p class="distance-remaining"></p></div>
 				   <!--<div class="time-elapsed"></div>-->
-				   <div class="button start-trip"><a>Start a New Trip</a></div>
-				   <div class="button end-trip"><a>End Current Trip</a></div>
-				   <div class="button update-trip"><a>Update Trip</a></div>
+				   <div class="button start-trip"><a>Start a New Event</a></div>
+				   <div class="button end-trip"><a>End Current Event</a></div>
+				   <div class="button update-trip"><a>Update Event</a></div>
 				   <div class="button get-trip-destination"><a>What's my destination?</a></div>
 				   <div class="button get-watcher-phone-number"><a>Who will receive notifications?</a></div>
+			   </div>
+
+			   <div class="pane diary">
+				   <h3>Diary Management</h3>
+				   <div class="diary-status"><p>Diary Status: <span class="status">Not Active</span></p></div>
+				   <div class="button start-diary"><a>Create New Diary</a></div>
+				   <div class="button get-diary"><a>Get Diary</a></div>
+				   <div class="button end-diary"><a>End Diary</a></div>
+				   <div class="button add-photo"><a>Add Photo</a></div>
 			   </div>
 
 			   <div class="pane trip-history">

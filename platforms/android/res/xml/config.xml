@@ -15,6 +15,9 @@
         <param name="android-package" value="de.appplant.cordova.plugin.background.BackgroundMode" />
     </feature>
     <preference name="KeepRunning" value="true" />
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
     <allow-intent href="market:*" />
     <name>Safe and Secure Trip Tracker</name>
     <description>

@@ -29,6 +29,10 @@
     <feature name="BackgroundMode">
         <param name="ios-package" value="APPBackgroundMode" />
     </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <preference name="CameraUsesGeolocation" value="false" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <name>Safe and Secure Trip Tracker</name>
