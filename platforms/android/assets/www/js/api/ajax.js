@@ -3,8 +3,18 @@
  */
 
 var API = new function() {
-    this.base_url = window.location.origin;
-    //base_url: "http://sas.blakefrederick.com",
+
+    var localdev = 0;
+    var devicedev = localdev ? 0 : 1;
+
+    if(localdev == 1) {
+        this.base_url = window.location.origin;
+    }
+    // DEV Site - needed for testing actual devices
+    if(devicedev == 1) {
+        this.base_url = "http://sas.blakefrederick.com";
+    }
+
     this.endpointFile = this.base_url + "/rest/type/node/event";
     this.restToken = '';
 };
@@ -36,6 +46,9 @@ var ajaxRequest = (function() {
         else if(ajaxMethod == "PATCH") {
             requestURL = API.base_url + "/node/" + nodeID;
         }
+        else if(ajaxMethod == "GET") {
+            requestURL = API.base_url + "/diary/" + nodeID;
+        }
 
         if(entityType == "file") {
             requestURL = API.base_url + "/entity/file";
@@ -44,8 +57,7 @@ var ajaxRequest = (function() {
         console.log("entityType is " + entityType);
         console.log("requestURL is " + requestURL);
 
-
-        $.ajax({
+        var ajaxRequestObject = {
             type: ajaxMethod,
             headers: {
                 // @TODO: Move these credentials out of here once user login functions
@@ -64,7 +76,15 @@ var ajaxRequest = (function() {
                 console.table(msg);
                 onError(msg);
             }
-        });
+        };
+
+        // For some reason GET does not like the Authorization header to be included.
+        if(ajaxMethod == "GET") {
+            delete ajaxRequestObject.headers.Authorization;
+            delete ajaxRequestObject.data;
+        }
+
+        $.ajax(ajaxRequestObject);
     }
 
     return {

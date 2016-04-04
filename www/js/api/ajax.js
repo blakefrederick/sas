@@ -3,8 +3,18 @@
  */
 
 var API = new function() {
-    this.base_url = window.location.origin;
-    //base_url: "http://sas.blakefrederick.com",
+
+    var localdev = 0;
+    var devicedev = localdev ? 0 : 1;
+
+    if(localdev == 1) {
+        this.base_url = window.location.origin;
+    }
+    // DEV Site - needed for testing actual devices
+    if(devicedev == 1) {
+        this.base_url = "http://sas.blakefrederick.com";
+    }
+
     this.endpointFile = this.base_url + "/rest/type/node/event";
     this.restToken = '';
 };

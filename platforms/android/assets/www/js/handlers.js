@@ -9,6 +9,13 @@ $(document).ready( function() {
   window.localStorage.setItem("userDestination", "Not yet set");
   window.localStorage.setItem("emergencySMS", "7783232713");
 
+  /**
+   * Set up some initial stuff.
+   */
+  $('#diary-publish-time').appendDtpicker({
+    "autodateOnStart": false
+  });
+
 
   /**
    * Get a Trip by node ID Handler
@@ -123,12 +130,41 @@ $(document).ready( function() {
 
 
   /**
-   * Create Diary Handler
+   * Get Diary Handler
+   */
+  $('.get-diary.button').click(function(e) {
+    var desiredDiaryId = $('#diary-id').val();
+    if(typeof desiredDiaryId == 'undefined') {
+      desiredDiaryId = getCurrentDiaryId();
+    }
+    console.log("desiredDiaryId before getting Diary is: " + JSON.stringify(desiredDiaryId));
+    Diary.getDiary(desiredDiaryId);
+  });
+
+
+  /**
+   * Add Diary Photo Handler
    */
   $('.add-photo.button').click(function(e) {
     Diary.createDiaryImage();
   });
 
+  /**
+   * Set Diary Publish Time Handler
+   */
+  $('.set-diary-publish-time.button').click(function(e) {
+    var publishTime = $('input#diary-publish-time').val();
+    console.log("Diary publish time set to " + publishTime + ". About to call Diary.setPublishTime");
+    Diary.setPublishTime(publishTime);
+  });
+
+  /**
+   * Add Diary Note Handler
+   */
+  $('.add-note.button').click(function(e) {
+    var note = prompt("Add Note", "");
+    Diary.createNote(note);
+  });
 
   /**
    * End Diary Handler

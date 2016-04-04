@@ -1,35 +1,38 @@
 <!DOCTYPE HTML>
 <head>
-<title>Safe and Secure Trip Tracker</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<link href="css/main.css" rel="stylesheet" type="text/css" media="all"/>
-<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
+	<title>Safe and Secure Trip Tracker</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/main.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="js/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet" type="text/css" media="all"/>
+	<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
 
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
-<script type="text/javascript" src="js/login.js"></script>
-<script type="text/javascript" src="js/jquery.easing.js"></script>
-<script type="text/javascript" src="js/jquery.ulslide.js"></script>
-<script type="text/javascript" src="js/lib/base64.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.js"></script>
+	<script type="text/javascript" src="js/jquery.ulslide.js"></script>
+	<script type="text/javascript" src="js/lib/base64.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
-<script src="js/api/ajax.js"></script>
-<script src="js/api/event.js"></script>
-<script src="js/api/diary.js"></script>
-<script src="js/handlers.js"></script>
-<script src="js/init.js"></script>
-<script src="js/sms.js"></script>
-<script src="js/notifications.js"></script>
-<script src="js/helper-functions.js"></script>
-<script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
-<script type="text/javascript">
-		$(function() {
-			$('nav#menu').mmenu();
-		});
-</script>
+	<script src="js/api/ajax.js"></script>
+	<script src="js/api/event.js"></script>
+	<script src="js/api/diary.js"></script>
+	<script src="js/api/dev-images.js"></script>
+	<script src="js/handlers.js"></script>
+	<script src="js/init.js"></script>
+	<script src="js/sms.js"></script>
+	<script src="js/notifications.js"></script>
+	<script src="js/helper-functions.js"></script>
+	<script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
+	<script type="text/javascript">
+			$(function() {
+				$('nav#menu').mmenu();
+			});
+	</script>
 </head>
 <body>			       
 	    <div class="wrap">	 
@@ -72,6 +75,29 @@
 				   <div class="container"></div>
 			   </div>
 
+			   <div class="pane diary">
+				   <h3>Diary Management</h3>
+				   <div class="diary-status"><p>Diary Status: <span class="status">Not Active</span></p></div>
+				   <div class="button start-diary"><a>Create New Diary</a></div>
+				   <div class="button add-note"><a>Add Note</a></div>
+				   <div class="button add-photo"><a>Add Photo</a></div>
+				   <div class="button set-diary-publish-time"><a>Set Auto Publish Time</a></div>
+				   <div class="form-group set-diary-publish-time">
+					   <label for="diary-publish-time">Date/Time</label>
+					   <input class="form-control" type="text" maxlength="40" placeholder="Date/Time" id="diary-publish-time"/>
+				   </div>
+				   <div class="button end-diary"><a>End Diary</a></div>
+			   </div>
+
+			   <div class="pane diary debug">
+				   <h3>Diary Debug</h3>
+				   <div class="button get-diary"><a>Get Diary</a></div>
+				   <div class="form-group get-diary-id">
+					   <label for="diary-id">ID</label>
+					   <input class="form-control" type="text" maxlength="4" placeholder="ID" id="diary-id"/>
+				   </div>
+			   </div>
+
 			   <div class="pane trip">
 				   <h3>Event Management</h3>
 				   <div class="trip-status"><p>Trip Status: <span class="status">Not Active</span></p></div>
@@ -82,15 +108,6 @@
 				   <div class="button update-trip"><a>Update Event</a></div>
 				   <div class="button get-trip-destination"><a>What's my destination?</a></div>
 				   <div class="button get-watcher-phone-number"><a>Who will receive notifications?</a></div>
-			   </div>
-
-			   <div class="pane diary">
-				   <h3>Diary Management</h3>
-				   <div class="diary-status"><p>Diary Status: <span class="status">Not Active</span></p></div>
-				   <div class="button start-diary"><a>Create New Diary</a></div>
-				   <div class="button get-diary"><a>Get Diary</a></div>
-				   <div class="button end-diary"><a>End Diary</a></div>
-				   <div class="button add-photo"><a>Add Photo</a></div>
 			   </div>
 
 			   <div class="pane trip-history">

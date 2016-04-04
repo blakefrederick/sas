@@ -393,7 +393,7 @@ function createDiary() {
   Diary.createDiary();
 }
 
-// DEBUG
+// Remove this function.
 function takePhoto() {
 
   console.log("inside takePhoto()");
@@ -418,5 +418,3 @@ function takePhoto() {
   }
 
 }
-//$.base64.encode( "this is a test" ) returns "dGhpcyBpcyBhIHRlc3Q="
-//$.base64.decode( "dGhpcyBpcyBhIHRlc3Q=" ) returns "this is a test"
