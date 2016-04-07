@@ -18,6 +18,9 @@
     <feature name="Camera">
         <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
     </feature>
+    <feature name="BackgroundGeoLocation">
+        <param name="android-package" value="com.tenforwardconsulting.cordova.bgloc.BackgroundGeolocationPlugin" />
+    </feature>
     <allow-intent href="market:*" />
     <name>Safe and Secure Trip Tracker</name>
     <description>

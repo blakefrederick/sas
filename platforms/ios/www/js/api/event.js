@@ -35,7 +35,7 @@ var Event = (function() {
     };
 
 
-    ajaxRequest.sendRequest("POST", null, requestObject, createEventSuccess, createEventError);
+    ajaxRequest.sendRequest("POST", "node", null, requestObject, createEventSuccess, createEventError);
 
   }
 
@@ -54,7 +54,7 @@ var Event = (function() {
       ]
     };
 
-    ajaxRequest.sendRequest("PATCH", 1, requestObject, createEventSuccess, createEventError);
+    ajaxRequest.sendRequest("PATCH", "node", 1, requestObject, createEventSuccess, createEventError);
 
   }
 

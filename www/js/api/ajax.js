@@ -1,10 +1,9 @@
-/*
+/**
  * API related values that are accessed "globally"
  */
-
 var API = new function() {
 
-    var localdev = 0;
+    var localdev = 1;
     var devicedev = localdev ? 0 : 1;
 
     if(localdev == 1) {
@@ -94,23 +93,14 @@ var ajaxRequest = (function() {
 
 })();
 
-
-
-
 /// MAIN
-
 
 var fields = {
     "userDestination": "",
     "watcherPhoneNumber": "",
 };
 
-
 ajaxRequest.getToken();
-
-
-// @TODO Does this need to instead be an object created with the new keyword?
-// Event.createEvent(fields);
 
 
 

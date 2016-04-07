@@ -23,8 +23,24 @@
 }
 .button.change-emergency-sms a:hover {
 }
-
-
+.pane.diary .start-diary a {
+    background: #5cb85c !important;
+}
+.pane.diary .add-photo {
+    display: none;
+}
+.pane.diary .end-diary {
+    display: none;
+}
+.pane.diary .set-diary-publish-time {
+    display: none;
+}
+.pane.diary .add-note {
+    display: none;
+}
+.pane.diary .end-diary a {
+    background: #d9534f;
+}
 
 
 /*.trip-status {*/

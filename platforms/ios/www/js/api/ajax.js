@@ -2,9 +2,21 @@
  * API related values that are accessed "globally"
  */
 
-var API = {
-    base_url: window.location.origin,
-    restToken: ''
+var API = new function() {
+
+    var localdev = 0;
+    var devicedev = localdev ? 0 : 1;
+
+    if(localdev == 1) {
+        this.base_url = window.location.origin;
+    }
+    // DEV Site - needed for testing actual devices
+    if(devicedev == 1) {
+        this.base_url = "http://sas.blakefrederick.com";
+    }
+
+    this.endpointFile = this.base_url + "/rest/type/node/event";
+    this.restToken = '';
 };
 
 
@@ -24,7 +36,7 @@ var ajaxRequest = (function() {
         });
     }
 
-    function sendRequest(ajaxMethod, nodeID, requestObject, onSuccess, onError) {
+    function sendRequest(ajaxMethod, entityType, nodeID, requestObject, onSuccess, onError) {
 
         var requestURL = '';
 
@@ -34,8 +46,18 @@ var ajaxRequest = (function() {
         else if(ajaxMethod == "PATCH") {
             requestURL = API.base_url + "/node/" + nodeID;
         }
+        else if(ajaxMethod == "GET") {
+            requestURL = API.base_url + "/diary/" + nodeID;
+        }
 
-        $.ajax({
+        if(entityType == "file") {
+            requestURL = API.base_url + "/entity/file";
+        }
+
+        console.log("entityType is " + entityType);
+        console.log("requestURL is " + requestURL);
+
+        var ajaxRequestObject = {
             type: ajaxMethod,
             headers: {
                 // @TODO: Move these credentials out of here once user login functions
@@ -45,16 +67,24 @@ var ajaxRequest = (function() {
             },
             url: requestURL,
             data: JSON.stringify(requestObject),
-            success: function(msg) {
+            success: function(data, textStatus, jqXHR) {
                 console.log("Ajax request succeeded.");
-                onSuccess();
+                onSuccess(data, textStatus, jqXHR);
             },
             error: function(msg) {
                 console.log("Ajax request failed.");
                 console.table(msg);
-                onError();
+                onError(msg);
             }
-        });
+        };
+
+        // For some reason GET does not like the Authorization header to be included.
+        if(ajaxMethod == "GET") {
+            delete ajaxRequestObject.headers.Authorization;
+            delete ajaxRequestObject.data;
+        }
+
+        $.ajax(ajaxRequestObject);
     }
 
     return {

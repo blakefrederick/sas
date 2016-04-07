@@ -9,6 +9,13 @@ $(document).ready( function() {
   window.localStorage.setItem("userDestination", "Not yet set");
   window.localStorage.setItem("emergencySMS", "7783232713");
 
+  /**
+   * Set up some initial stuff.
+   */
+  $('#diary-publish-time').appendDtpicker({
+    "autodateOnStart": false
+  });
+
 
   /**
    * Get a Trip by node ID Handler
@@ -83,17 +90,13 @@ $(document).ready( function() {
   });
 
 
-
   /**
    * Update Trip Handler
    */
   $('.update-trip.button').click(function(e) {
-
     console.log(Event);
     Event.updateEvent();
-
   });
-
 
 
   /**
@@ -122,7 +125,52 @@ $(document).ready( function() {
    * Create Diary Handler
    */
   $('.start-diary.button').click(function(e) {
-    createDiary();
+    Diary.createDiary();
+  });
+
+
+  /**
+   * Get Diary Handler
+   */
+  $('.get-diary.button').click(function(e) {
+    var desiredDiaryId = $('#diary-id').val();
+    if(typeof desiredDiaryId == 'undefined') {
+      desiredDiaryId = getCurrentDiaryId();
+    }
+    console.log("desiredDiaryId before getting Diary is: " + JSON.stringify(desiredDiaryId));
+    Diary.getDiary(desiredDiaryId);
+  });
+
+
+  /**
+   * Add Diary Photo Handler
+   */
+  $('.add-photo.button').click(function(e) {
+    Diary.createDiaryImage();
+  });
+
+  /**
+   * Set Diary Publish Time Handler
+   */
+  $('.set-diary-publish-time.button').click(function(e) {
+    var publishTime = $('input#diary-publish-time').val();
+    console.log("Diary publish time set to " + publishTime + ". About to call Diary.setPublishTime");
+    Diary.setPublishTime(publishTime);
+  });
+
+  /**
+   * Add Diary Note Handler
+   */
+  $('.add-note.button').click(function(e) {
+    var note = prompt("Add Note", "");
+    Diary.createNote(note);
+  });
+
+  /**
+   * End Diary Handler
+   */
+  $('.end-diary.button').click(function(e) {
+    Diary.endDiary();
   });
 
 
@@ -149,63 +197,4 @@ $(document).ready( function() {
     window.localStorage.setItem("emergencySMS", newEmergencySMS);
   });
 
-
-  /**
-   *  Device is ready
-   */
-  function onDeviceReady() {
-
-    console.log("Device ready");
-    $('.device-ready').html("Device ready");
-
-    addNotification("<p>Welcome back, Blake.</p>");
-
-    navigator.geolocation.getCurrentPosition(function(position) {
-      // just to show how to access latitute and longitude
-      var location = [position.coords.latitude, position.coords.longitude];
-      console.log("Got location. Initial position: " + position.coords.latitude);
-      $('.first-position').html("First position: " + location[0] + ", " + location[1]);
-      $('.current-position').html("Current position: " + location[0] + ", " + location[1]);
-    },
-    function(error) {
-      // error getting GPS coordinates
-      alert('code: ' + error.code + ' with message: ' + error.message + '\n');
-    },
-    {
-      enableHighAccuracy: true, maximumAge: 3000, timeout: 5000
-    });
-
-
-    // Debug
-    appInBackground();
-
-  }
-
-  // Can this go above the function?
-  document.addEventListener("deviceready", onDeviceReady, false);
-
 });
-
-
-function appInBackground() {
-
-  // Android customization
-  cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
-
-  cordova.plugins.backgroundMode.enable();
-
-  // Called when background mode has been activated
-  cordova.plugins.backgroundMode.onactivate = function () {
-    setTimeout(function () {
-      // Modify the currently displayed notification
-      cordova.plugins.backgroundMode.configure({
-        title: 'SAS is running in the background',
-        ticker: 'Ticket goes here',
-        text:'Running in background for more than 1s now.'
-      });
-    }, 1000);
-
-  }
-
-
-}

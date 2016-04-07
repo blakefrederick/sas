@@ -24,6 +24,9 @@
         },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.ssecurity.workshop"
+        },
+        "cordova-plugin-mauron85-background-geolocation": {
+            "PACKAGE_NAME": "com.ssecurity.workshop"
         }
     },
     "dependent_plugins": {}

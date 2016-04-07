@@ -330,6 +330,85 @@ function updateTripTimer() {
 }
 
 
+function appInBackground() {
+
+  // Android customization
+  cordova.plugins.backgroundMode.setDefaults({ text:'SAS just put into background.'});
+
+  cordova.plugins.backgroundMode.enable();
+
+  // Called when background mode has been activated
+  cordova.plugins.backgroundMode.onactivate = function () {
+
+    // Check to see if Diary is active
+    // If so, continually update Diary GPS coordinates
+    //if(Diary.getCurrentDiaryStatus() == 1) {
+    //  Diary.startGPSTracking();
+    //}
+
+    navigator.geolocation.watchPosition(
+
+      // Success
+      function(pos){
+        console.log("Background: Got new GPS position");
+      },
+
+      // Error
+      function(error){
+        console.log("Background: GPS Tracking error: " + error);
+      },
+
+      // Settings
+      { frequency: 2000, enableHighAccuracy: true }
+    );
+
+    setTimeout(function () {
+      // Modify the currently displayed notification
+      cordova.plugins.backgroundMode.configure({
+        title: 'SAS is running in the background',
+        ticker: 'Ticket goes here',
+        text:'Running in background for more than 1s now.'
+      });
+    }, 1000);
+
+  }
+}
+
+/**
+ *  Device is ready
+ */
+function onDeviceReady() {
+
+  console.log("Device ready");
+  $('.device-ready').html("Device ready");
+
+  addNotification("<p>Welcome back, Blake.</p>");
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+      // just to show how to access latitute and longitude
+      var location = [position.coords.latitude, position.coords.longitude];
+      console.log("Got location. Initial position: " + position.coords.latitude);
+      $('.first-position').html("First position: " + location[0] + ", " + location[1]);
+      $('.current-position').html("Current position: " + location[0] + ", " + location[1]);
+    },
+    function(error) {
+      // error getting GPS coordinates
+      alert('code: ' + error.code + ' with message: ' + error.message + '\n');
+    },
+    {
+      enableHighAccuracy: true, maximumAge: 3000, timeout: 5000
+    });
+
+
+  // Debug Background functionality
+  appInBackground();
+
+}
+
+// Can this go above the function?
+document.addEventListener("deviceready", onDeviceReady, false);
+
+
 /**
  * Create Diary
  */
@@ -337,11 +416,28 @@ function createDiary() {
   Diary.createDiary();
 }
 
+// Remove this function.
+function takePhoto() {
 
-////
-/// Test Base64 encoding
-///
+  console.log("inside takePhoto()");
 
-//$.base64.encode( "this is a test" ) returns "dGhpcyBpcyBhIHRlc3Q="
-//$.base64.decode( "dGhpcyBpcyBhIHRlc3Q=" ) returns "this is a test"
+  navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+    destinationType: Camera.DestinationType.DATA_URL
+  });
 
+  function onSuccess(imageData) {
+  //  var image = document.getElementById('myImage');
+  //  image.src = "data:image/jpeg;base64," + imageData;
+
+    console.log(imageData);
+    // notifications
+    addNotification("<p>Tried to create new diary content with photo by sending data to Drupal</p>");
+    fields["diaryPhoto"] = imageData;
+    Diary.createDiary(fields);
+  }
+
+  function onFail(message) {
+    alert('Failed because: ' + message);
+  }
+
+}

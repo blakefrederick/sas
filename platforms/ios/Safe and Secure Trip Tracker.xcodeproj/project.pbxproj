@@ -52,6 +52,8 @@
 		93B2780BE0CB4C269105D203 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A0F3EC860C42E09E4BA210 /* CDVJpegHeaderWriter.m */; };
 		E46F8269B8D24B2693E9DC16 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3C5CF601AE43EBBABB6572 /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5F0F61D0A1604A7CAC7F440E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCE685C4E074B7AB92C639D /* AVFoundation.framework */; };
+		09C4809E07B64EFAABA95B72 /* CDVBackgroundGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CF8BDBBCD470FB1781EA3 /* CDVBackgroundGeoLocation.m */; };
+		9946CD2C72CE428488A9571B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4286EEA667D54B38A1692EB4 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +141,9 @@
 		763344267AD54403B4130F7D /* CDVExif.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVExif.h"; path = "cordova-plugin-camera/CDVExif.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		CF3C5CF601AE43EBBABB6572 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "ImageIO.framework"; path = "System/Library/Frameworks/ImageIO.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		4CCE685C4E074B7AB92C639D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		6F4CF8BDBBCD470FB1781EA3 /* CDVBackgroundGeoLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVBackgroundGeoLocation.m"; path = "cordova-plugin-mauron85-background-geolocation/CDVBackgroundGeoLocation.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		7904DED515E941B89B1CA0DD /* CDVBackgroundGeoLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVBackgroundGeoLocation.h"; path = "cordova-plugin-mauron85-background-geolocation/CDVBackgroundGeoLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		4286EEA667D54B38A1692EB4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +159,7 @@
 				41EA40A4B6644CBE9E247E8A /* MessageUI.framework in Frameworks */,
 				E46F8269B8D24B2693E9DC16 /* ImageIO.framework in Frameworks */,
 				5F0F61D0A1604A7CAC7F440E /* AVFoundation.framework in Frameworks */,
+				9946CD2C72CE428488A9571B /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +237,7 @@
 				15304E1F094C4833AA8360C1 /* MessageUI.framework */,
 				CF3C5CF601AE43EBBABB6572 /* ImageIO.framework */,
 				4CCE685C4E074B7AB92C639D /* AVFoundation.framework */,
+				4286EEA667D54B38A1692EB4 /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -263,6 +270,8 @@
 				46972C44BD244075AB654377 /* CDVCamera.h */,
 				CB3F9995ED754BB7BEB16A38 /* CDVJpegHeaderWriter.h */,
 				763344267AD54403B4130F7D /* CDVExif.h */,
+				6F4CF8BDBBCD470FB1781EA3 /* CDVBackgroundGeoLocation.m */,
+				7904DED515E941B89B1CA0DD /* CDVBackgroundGeoLocation.h */,
 			);
 			name = Plugins;
 			path = "Safe and Secure Trip Tracker/Plugins";
@@ -456,6 +465,7 @@
 				717E4417A2B24DE98C64EBB4 /* UIImage+CropScaleOrientation.m in Sources */,
 				3D0C5F641AB84EDB9D9FD553 /* CDVCamera.m in Sources */,
 				93B2780BE0CB4C269105D203 /* CDVJpegHeaderWriter.m in Sources */,
+				09C4809E07B64EFAABA95B72 /* CDVBackgroundGeoLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

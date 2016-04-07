@@ -26,6 +26,12 @@
 .pane.diary .start-diary a {
     background: #5cb85c !important;
 }
+.pane.diary .start-diary a:active {
+    background: pink !important;
+}
+.pane.diary .start-diary a:active {
+    background: darkorange !important;
+}
 .pane.diary .add-photo {
     display: none;
 }
@@ -43,9 +49,12 @@
 }
 
 
-/*.trip-status {*/
-    /*color: #d7daff;*/
-/*}*/
+/****** Notifications ******/
+
+.notifications .container {
+    height: 100px;
+    overflow-y: hidden;
+}
 
 .notifications .container p {
     margin: 5px 0;

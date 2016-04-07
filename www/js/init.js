@@ -9,11 +9,6 @@ function promptUserTripDetails(position) {
 
     window.localStorage.setItem('watcherPhoneNumber', watcherPhoneNumber);
 
-    // @Todo: Pull these function calls out of this function and put them in the Start Trip click handler.
-
-    // DEPRECATED
-    //createTrip(userDestination, watcherPhoneNumber);
-
     var fields = {
       "userDestination": userDestination,
       "watcherPhoneNumber": watcherPhoneNumber
@@ -68,9 +63,6 @@ function startTrip(){
 
     navigator.geolocation.getCurrentPosition(
       function(position) {
-
-          //addNotification("<p>Getting current GPS position.</p>");
-
           // Ask the user for their trip destination
           userDestination = promptUserDestination(position);
           // Ask the user who to contact when the trip ends
@@ -78,9 +70,6 @@ function startTrip(){
 
           addNotification("<p>An SMS will be sent to " + watcherPhoneNumber + " when your trip is complete.</p>");
           addNotification("<p>Your trip will end when you reach your destination or if you end the trip manually.</p>");
-
-          // DEPRECATED
-          //createTrip(userDestination, watcherPhoneNumber);
 
           var fields = {
             "userDestination": userDestination,
@@ -186,58 +175,6 @@ function getTrip(nid, successCallback) {
   });
 }
 
-
-/**
- * DEPRECATED Create a Trip
- *
- * Creates a Trip content type with a user destination.
- */
-//function createTrip(userDestination, watcherPhoneNumber) {
-//  console.log("About to create a new trip.");
-//
-//  var date = new Date();
-//  var title = "User Trip Dated " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
-//
-//  var requestObject = {
-//    "_links": {
-//      "type": {
-//        "href": "http://sas.blakefrederick.com/rest/type/node/trip"
-//      }
-//    },
-//    "title": [
-//      {"value": title}
-//    ],
-//    "field_destination_coordinate": [
-//      {"value": userDestination}
-//    ],
-//    "field_trip_status": [
-//      {"value": 1}
-//    ],
-//    "field_watcher_phone_number": [
-//      {"value": watcherPhoneNumber}
-//    ]
-//  };
-//
-//  $.ajax({
-//    type:"POST",
-//    headers: {
-//      "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
-//      "X-CSRF-Token": 'r3JhefG83JEzHOxe8whGnxhV7MJs8hlsqvRkmQg_fyU',
-//      "Content-Type": 'application/hal+json'
-//    },
-//    url: API.base_url + "/entity/node",
-//    data: JSON.stringify(requestObject),
-//    success: function(msg) {
-//      console.log("Successfully created a new trip.");
-//    },
-//    error: function(msg) {
-//      console.log("There was a problem. Failed to create a new trip.");
-//      console.table(msg);
-//    }
-//  });
-//}
-
-
 /**
  * End a Trip
  *
@@ -325,96 +262,55 @@ function startTripTimer() {
   window.localStorage.setItem("tripStart", Date.now())
 }
 
-function updateTripTimer() {
+/**
+ *  Tell app what to do when it goes into the background. Used for background GPS tracking.
+ */
+function setupBackgroundTasks() {
 
-}
+  //// Android customization
+  //cordova.plugins.backgroundMode.configure({
+  //  title: 'SAS is running in the background',
+  //  ticker: 'Ticket goes here',
+  //  text:'Running in background for more than 1s now.'
+  //});
+  ////cordova.plugins.backgroundMode.enable();
+  //
+  //// Called when background mode has been activated
+  //cordova.plugins.backgroundMode.onactivate = function () {
+  //
+  //};
 
-
-function appInBackground() {
-
-  // Android customization
-  cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
-
-  cordova.plugins.backgroundMode.enable();
-
-  // Called when background mode has been activated
-  cordova.plugins.backgroundMode.onactivate = function () {
-    setTimeout(function () {
-      // Modify the currently displayed notification
-      cordova.plugins.backgroundMode.configure({
-        title: 'SAS is running in the background',
-        ticker: 'Ticket goes here',
-        text:'Running in background for more than 1s now.'
-      });
-    }, 1000);
-
-  }
+  // BackgroundGeoLocation is highly configurable. See platform specific configuration options
+  backgroundGeoLocation.configure(Diary.backgroundPushGPSCoordinates, Diary.backgroundGeolocationError, {
+    desiredAccuracy: settings.GPS.background.desiredAccuracy,
+    stationaryRadius: settings.GPS.background.stationaryRadius,
+    distanceFilter: settings.GPS.background.distanceFilter,
+    notificationTitle: settings.GPS.background.notificationTitle, // <- Android only
+    notificationText: settings.GPS.background.notificationText,
+    // @TODO Figure out why the current settings for these values causes the app to immediately crash.
+    //notificationIcon: settings.GPS.background.notificationIcon,
+    //notificationIconColor: settings.GPS.background.notificationIconColor,
+    debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
+    stopOnTerminate: true, // <-- enable this to clear background location settings when the app terminates
+  });
 }
 
 /**
  *  Device is ready
  */
-function onDeviceReady() {
-
+function deviceReady() {
   console.log("Device ready");
   $('.device-ready').html("Device ready");
-
   addNotification("<p>Welcome back, Blake.</p>");
-
-  navigator.geolocation.getCurrentPosition(function(position) {
-      // just to show how to access latitute and longitude
-      var location = [position.coords.latitude, position.coords.longitude];
-      console.log("Got location. Initial position: " + position.coords.latitude);
-      $('.first-position').html("First position: " + location[0] + ", " + location[1]);
-      $('.current-position').html("Current position: " + location[0] + ", " + location[1]);
-    },
-    function(error) {
-      // error getting GPS coordinates
-      alert('code: ' + error.code + ' with message: ' + error.message + '\n');
-    },
-    {
-      enableHighAccuracy: true, maximumAge: 3000, timeout: 5000
-    });
-
-
-  // Debug Background functionality
-  appInBackground();
-
+  setupBackgroundTasks();
 }
 
 // Can this go above the function?
-document.addEventListener("deviceready", onDeviceReady, false);
-
+document.addEventListener("deviceready", deviceReady, false);
 
 /**
  * Create Diary
  */
 function createDiary() {
   Diary.createDiary();
-}
-
-// Remove this function.
-function takePhoto() {
-
-  console.log("inside takePhoto()");
-
-  navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-    destinationType: Camera.DestinationType.DATA_URL
-  });
-
-  function onSuccess(imageData) {
-  //  var image = document.getElementById('myImage');
-  //  image.src = "data:image/jpeg;base64," + imageData;
-
-    console.log(imageData);
-    // notifications
-    addNotification("<p>Tried to create new diary content with photo by sending data to Drupal</p>");
-    fields["diaryPhoto"] = imageData;
-    Diary.createDiary(fields);
-  }
-
-  function onFail(message) {
-    alert('Failed because: ' + message);
-  }
-
 }

@@ -1,37 +1,42 @@
-/*
+// @TODO Can this object be split into multiple files? It is becoming unruly.
+
+/**
  * Creates the Diary object.
  */
-
 var Diary = (function() {
 
-  var localdev = 0;
+  var localdev = 1;
   var devicedev = localdev ? 0 : 1;
 
   var endpoint = API.base_url + "/rest/type/node/diary";
+
+  var currentDiaryStatus = 0;
   var currentDiaryId = "";
   var currentDiaryImages = [];
   var currentDiaryNotes = [];
   var currentDiaryGeolocations = [];
+  var foregroundGeolocationWatch;
+  var prevTime = Date.now();
 
+  /**
+   * Debug function to view JSON of an existing Diary
+   * @param diaryNodeId - Drupal node ID of the Diary content to retrieve
+   */
   function getDiary(diaryNodeId) {
-
     console.log("About to get a Diary object from Drupal.");
-
     var requestObject = {};
-
     ajaxRequest.sendRequest("GET", "node", diaryNodeId, requestObject, function(data){console.log(JSON.stringify(data))}, function(){console.log("error")});
-
     console.log(JSON.stringify(diaryNodeId));
   }
 
-
+  /**
+   * Create a new Diary. Only one Diary can be active at a time.
+   */
   function createDiary() {
-
     console.log("About to create a new Diary.");
     console.log("Endpoint is " + endpoint);
 
     var title = "Diary-" + getDateString();
-
     var requestObject = {
       "_links": {
         "type": {
@@ -59,10 +64,12 @@ var Diary = (function() {
     $('.pane.diary .button').show();
     $('.set-diary-publish-time').show();
     $('.start-diary.button').hide();
+    $('.set-diary-publish-time').show();
 
     setCurrentDiaryId(xhr.getResponseHeader("entity_id"));
     changeDiaryStatus(1);
     startGPSTracking();
+    backgroundGeoLocation.start();
 
     console.log("Current Diary has entity_id " + getCurrentDiaryId());
   }
@@ -71,40 +78,88 @@ var Diary = (function() {
    * Starts the GPS tracking and starts relaying this data periodically to the server.
    */
   function startGPSTracking() {
+    foregroundGeolocationWatch = navigator.geolocation.watchPosition(
+      pushGPSCoordinates,
+      geolocationError,
+      { frequency: settings.GPS.frequency, enableHighAccuracy: settings.GPS.enableHighAccuracy }
+    );
+  }
+
+  /**
+   * The app has recorded a new GPS position. Push it to the server.
+   * @param position Object
+   */
+  function pushGPSCoordinates(position) {
+    var coords = {
+      "accuracy": position.coords.accuracy,
+      "latitude": position.coords.latitude,
+      "longitude": position.coords.longitude,
+      "speed": position.coords.speed,
+      "timestamp": position.timestamp
+    };
+    currentDiaryGeolocations.push(coords);
+    console.log("Pushing new geolocation onto geolocation array: ");
+    console.dir(position);
+    addNotification("<p>New GPS coordinate recorded.</p>");
+
+    if(prevTime + 3000 < Date.now()) {
+      console.log("Updating Diary geolocations field");
+      var fields = {};
+      fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
+      prevTime = Date.now();
+      updateDiary(currentDiaryId, fields);
+    }
+  }
+
+  /**
+   * The app has recorded a new GPS position while in the background. Push it to the server.
+   * @TODO Amalgamate this function with pushGPSCoordinates
+   */
+  function backgroundPushGPSCoordinates(position) {
+    console.log("Here's what the background GPS position object looks like: " + JSON.stringify(position));
 
     var prevTime = Date.now;
+    var coords = {
+      "accuracy": position.accuracy,
+      "latitude": position.latitude,
+      "longitude": position.longitude,
+      "speed": position.speed,
+      "timestamp": position.time
+    };
+    currentDiaryGeolocations.push(coords);
+    console.log("Pushing new geolocation onto geolocation array: ");
+    console.dir(position);
+    addNotification("<p>New background GPS coordinate recorded.</p>");
 
-    navigator.geolocation.watchPosition(
+    // if(prevTime < Date.now + 3000) {
+      console.log("Updating Diary geolocations field");
+      var fields = {};
+      fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
+      updateDiary(currentDiaryId, fields);
+    // }
 
-      // Success
-      function(pos){
-        var coords = {
-          "accuracy": pos.coords.accuracy,
-          "latitude": pos.coords.latitude,
-          "longitude": pos.coords.longitude,
-          "speed": pos.coords.speed,
-          "timestamp": pos.timestamp
-        };
-        currentDiaryGeolocations.push(coords);
-        console.log("Pushing new geolocation onto geolocation array: ");
-        console.dir(pos);
-        addNotification("<p>GPS tracking initiated.</p>");
+    /*
+     IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
+     and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
+     IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
+     */
+    backgroundGeoLocation.finish();
+  }
 
-        if(prevTime < Date.now + 2000) {
-          console.log("Updating Diary geolocations field");
-          var fields = {};
-          fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
-          updateDiary(currentDiaryId, fields);
-        }
-      },
+  /**
+   * The app failed to record a new GPS position.
+   * @param error Object
+   */
+  function geolocationError(error) {
+    console.log("Failed to watchPosition (GPS) with error: " + JSON.stringify(error));
+  }
 
-      // Error
-      function(error){
-        console.log("GPS Tracking error: " + error);
-      },
-
-      // Settings
-      { frequency: 2000, enableHighAccuracy: true });
+  /**
+   * The app failed to record a new GPS position while in the background.
+   * @param error Object
+   */
+  function backgroundGeolocationError(error) {
+    console.log("backgroundGeolocationError: " + JSON.stringify(error));
   }
 
   /**
@@ -147,21 +202,25 @@ var Diary = (function() {
       requestObject.field_diary_publish_time = Array(fields.publishTime);
     }
 
-    // This is the syntax that allows for attaching new image without overwriting existing one.
-    //requestObject.field_diary_photo = [{"target_id":"37"},{"target_id":"38"}];
-
     console.log("Hey, here is the request object " + JSON.stringify(requestObject));
-
     ajaxRequest.sendRequest("PATCH", "node", diaryNodeId, requestObject, updateDiarySuccess, updateDiaryError);
   }
 
+  /**
+   * Ends the currently running Diary so that no new content can be added to it.
+   */
   function endDiary() {
+    // @TODO Abstract all these hide/show tasks
     $('.set-diary-publish-time.button').hide();
     $('.pane.diary .button').hide();
     $('.pane.diary input').hide();
+    $('.set-diary-publish-time').hide();
     $('.start-diary').show();
     addNotification("<p>Ended current Diary</p>");
     changeDiaryStatus(0);
+    // Shut down GPS tracking
+    backgroundGeoLocation.stop();
+    navigator.geolocation.clearWatch(foregroundGeolocationWatch);
   }
 
   /**
@@ -185,9 +244,7 @@ var Diary = (function() {
    *   The fields object that contains the fields to be updated for this Diary node.
    */
   function createDiaryImage(fields) {
-
     console.log("About to create a Diary image.");
-
     var fields = fields || {};
 
     // Simulate multiple image file upload.
@@ -248,7 +305,7 @@ var Diary = (function() {
       console.log("Failed to get Diary image photo data because " + message);
     }
 
-    // Local dev
+    // DEBUG: Pretend like the user successfully took a photo.
     if(localdev == 1) {
       onSuccess(fields.diaryPhoto);
     }
@@ -278,7 +335,12 @@ var Diary = (function() {
       1: "Active"
     };
 
+    currentDiaryStatus = statuses[newStatus];
     $('.diary-status .status').html(statuses[newStatus]);
+  }
+
+  function getCurrentDiaryStatus() {
+    return currentDiaryStatus;
   }
 
   function createDiaryError(e) {
@@ -350,6 +412,10 @@ var Diary = (function() {
     setPublishTime: setPublishTime,
     createDiaryImage: createDiaryImage,
     createNote: createNote,
+    startGPSTracking: startGPSTracking,
+    backgroundPushGPSCoordinates: backgroundPushGPSCoordinates,
+    backgroundGeolocationError: backgroundGeolocationError,
+    getCurrentDiaryStatus: getCurrentDiaryStatus,
     // TODO: Do these actually need to be exposed?
     createDiarySuccess: createDiarySuccess,
     createDiaryError: createDiaryError
