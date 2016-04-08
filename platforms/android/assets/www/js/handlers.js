@@ -10,10 +10,18 @@ $(document).ready( function() {
   window.localStorage.setItem("emergencySMS", "7783232713");
 
   /**
-   * Set up some initial stuff.
+   * Date picker.
    */
-  $('#diary-publish-time').appendDtpicker({
-    "autodateOnStart": false
+  //$('#diary-publish-time').appendDtpicker({
+  //  "autodateOnStart": false
+  //});
+
+  $('#diary-publish-time').datetimepicker({
+    format: 'YYYY-MM-DDTHH:mm:ss'
+  });
+
+  $('.button.set-diary-publish-time').on("touch", function() {
+    $('#diary-publish-time').trigger("touch");
   });
 
 
@@ -21,12 +29,10 @@ $(document).ready( function() {
    * Get a Trip by node ID Handler
    */
   $('.get-trip.button').click(function(e) {
-
     var trip;
     var nid = prompt("Enter the node ID fo the trip you'd like to retrieve.", "23");
 
     getTrip(nid, getUserDestination);
-
   });
 
   /**
@@ -153,9 +159,30 @@ $(document).ready( function() {
    * Set Diary Publish Time Handler
    */
   $('.set-diary-publish-time.button').click(function(e) {
+    $('.form-group.set-diary-publish-time').show();
+    $('.form-group.set-diary-publish-time .button').invisible();
+    $('input#diary-publish-time').trigger("touch");
+  });
+
+  /**
+   * Diary Publish Time Input Field Handler
+   */
+  $('.set-diary-publish-time input').click(function(e) {
+    $('.set-diary-publish-time .button').visible();
+  });
+
+  /**
+   * Confirm Set Diary Publish Time Handler
+   */
+  $('.confirm-diary-publish-time.button').click(function(e) {
     var publishTime = $('input#diary-publish-time').val();
     console.log("Diary publish time set to " + publishTime + ". About to call Diary.setPublishTime");
     Diary.setPublishTime(publishTime);
+    $('.form-group.set-diary-publish-time').hide();
+    // @TODO this should really happen after updateDiarySuccess function has been called, but we'll cheat for now
+    addNotification("<p>Diary publish time updated to " + publishTime + "</p>");
+    $('.diary-publish-time .publish-time').html(publishTime.replace("T", " "));
+    $('.diary-publish-time').show();
   });
 
   /**
@@ -171,6 +198,7 @@ $(document).ready( function() {
    */
   $('.end-diary.button').click(function(e) {
     Diary.endDiary();
+    $('.diary-publish-time').hide();
   });
 
 

@@ -7,6 +7,8 @@
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 	<link href="css/main.css" rel="stylesheet" type="text/css" media="all"/>
 	<link href="js/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/bootstrap/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" media="all"/>
 	<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
 
 	<script type="text/javascript" src="js/jquery.js"></script>
@@ -28,7 +30,14 @@
 	<script src="js/sms.js"></script>
 	<script src="js/notifications.js"></script>
 	<script src="js/helper-functions.js"></script>
+
 	<script type="text/javascript" src="js/jquery.mmenu.min.js"></script>
+	<script src="js/lib/moment.min.js"></script>
+	<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+	<script src="js/lib/bootstrap/collapse.js"></script>
+	<script src="js/lib/bootstrap/transition.js"></script>
+	<script src="js/lib/bootstrap/bootstrap-datetimepicker.js"></script>
+
 	<script type="text/javascript">
 			$(function() {
 				$('nav#menu').mmenu();
@@ -79,6 +88,7 @@
 			   <div class="pane diary">
 				   <h3>Diary Management</h3>
 				   <div class="diary-status"><p>Diary Status: <span class="status">Not Active</span></p></div>
+				   <div class="diary-publish-time"><p>Diary will be published at: <span class="publish-time">Not Set</span></p></div>
 				   <div class="button start-diary"><a>Create New Diary</a></div>
 				   <div class="button add-note"><a>Add Note</a></div>
 				   <div class="button add-photo"><a>Add Photo</a></div>
@@ -86,6 +96,7 @@
 				   <div class="form-group set-diary-publish-time">
 					   <label for="diary-publish-time">Date/Time</label>
 					   <input class="form-control" type="text" maxlength="40" placeholder="Date/Time" id="diary-publish-time"/>
+					   <div class="button confirm-diary-publish-time"><a>Confirm</a></div>
 				   </div>
 				   <div class="button end-diary"><a>End Diary</a></div>
 			   </div>

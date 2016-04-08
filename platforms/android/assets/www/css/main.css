@@ -1,9 +1,20 @@
-.button.end-trip {
-    display: none;
+/** General **/
+
+input {
+    max-width: 80%;
+    margin: 0 auto !important;
 }
+
+label {
+    color: white;
+}
+
 
 /** Buttons **/
 
+.button.end-trip {
+    display: none;
+}
 .button.start-trip a {
     background: #5cb85c;
 }
@@ -52,7 +63,7 @@
 /****** Notifications ******/
 
 .notifications .container {
-    height: 100px;
+    height: 72px;
     overflow-y: hidden;
 }
 
@@ -91,4 +102,29 @@
 }
 .pane p {
     color: #d7daff;
+}
+
+
+/*** Diary ***/
+
+.form-group.set-diary-publish-time {
+    display: none;
+}
+.form-group.set-diary-publish-time * {
+    display: inline-block;
+}
+.form-group.set-diary-publish-time input {
+    max-width: 30%;
+}
+.form-group.set-diary-publish-time .button {
+    margin: 7px 0;
+}
+.form-group.set-diary-publish-time .button a {
+    padding: 9px 6px;
+    font-size: 0.85em;
+    background: #5cb85c !important;
+}
+
+.diary-publish-time {
+    display: none;
 }

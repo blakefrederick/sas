@@ -5,7 +5,7 @@
  */
 var Diary = (function() {
 
-  var localdev = 1;
+  var localdev = 0;
   var devicedev = localdev ? 0 : 1;
 
   var endpoint = API.base_url + "/rest/type/node/diary";
@@ -62,15 +62,14 @@ var Diary = (function() {
 
     addNotification("<p>Created a new Diary.</p>");
     $('.pane.diary .button').show();
-    $('.set-diary-publish-time').show();
     $('.start-diary.button').hide();
-    $('.set-diary-publish-time').show();
 
     setCurrentDiaryId(xhr.getResponseHeader("entity_id"));
     changeDiaryStatus(1);
     startGPSTracking();
-    backgroundGeoLocation.start();
-
+    if(devicedev == 1) {
+      backgroundGeoLocation.start();
+    }
     console.log("Current Diary has entity_id " + getCurrentDiaryId());
   }
 
@@ -190,16 +189,19 @@ var Diary = (function() {
       var diaryNotes = getCurrentDiaryNotes();
       diaryNotes.push(fields.diaryNote);
       requestObject.field_diary_note = diaryNotes;
+      addNotification("<p>Adding note to Diary.</p>");
     }
 
     if(typeof fields.diaryPhoto !== 'undefined') {
       var diaryPhotos = getCurrentDiaryImageIds();
       diaryPhotos.push(fields.diaryPhoto);
       requestObject.field_diary_photo = diaryPhotos;
+      addNotification("<p>Adding photo to Diary.</p>");
     }
 
     if(typeof fields.publishTime !== 'undefined') {
       requestObject.field_diary_publish_time = Array(fields.publishTime);
+      addNotification("<p>Setting Diary publish time.</p>");
     }
 
     console.log("Hey, here is the request object " + JSON.stringify(requestObject));
@@ -219,7 +221,10 @@ var Diary = (function() {
     addNotification("<p>Ended current Diary</p>");
     changeDiaryStatus(0);
     // Shut down GPS tracking
-    backgroundGeoLocation.stop();
+    if(devicedev == 1) {
+      backgroundGeoLocation.stop();
+    }
+    console.log("Here's what foregroundGeolocationWatch is: " + foregroundGeolocationWatch);
     navigator.geolocation.clearWatch(foregroundGeolocationWatch);
   }
 
@@ -231,8 +236,8 @@ var Diary = (function() {
    */
   function setPublishTime(publishTime) {
     // TODO implement better date/time conversion or restrict user input
-    publishTime = publishTime.replace(/ /g,"T");
-    publishTime = publishTime + ":00";
+    //publishTime = publishTime.replace(/ /g,"T");
+    //publishTime = publishTime + ":00";
     fields.publishTime = publishTime;
     updateDiary(currentDiaryId, fields);
   }
