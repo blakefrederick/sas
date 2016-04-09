@@ -1,11 +1,16 @@
 /** General **/
 
+html body {
+    background-color: #595594;
+}
+
 input {
     max-width: 80%;
     margin: 0 auto !important;
 }
 
-label {
+label,
+p {
     color: white;
 }
 
@@ -63,7 +68,7 @@ label {
 /****** Notifications ******/
 
 .notifications .container {
-    height: 72px;
+    height: 76px;
     overflow-y: hidden;
 }
 
@@ -89,6 +94,10 @@ label {
 }
 .pane div.button {
     margin: 20px 0;
+    display: inline-block;
+}
+.pane div.button:after {
+    content:"\A"; white-space:pre;
 }
 .pane h3 {
     color: #FFF;
@@ -109,8 +118,12 @@ label {
 
 .form-group.set-diary-publish-time {
     display: none;
+    position: relative;
 }
-.form-group.set-diary-publish-time * {
+.form-group.set-diary-publish-time .confirm-diary-publish-time,
+.form-group.set-diary-publish-time .text,
+.form-group.set-diary-publish-time .publish-diary-now,
+.form-group.set-diary-publish-time #diary-publish-time {
     display: inline-block;
 }
 .form-group.set-diary-publish-time input {
@@ -126,5 +139,9 @@ label {
 }
 
 .diary-publish-time {
+    display: none;
+}
+
+.gps-status {
     display: none;
 }

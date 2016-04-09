@@ -20,18 +20,14 @@ function promptUserTripDetails(position) {
 
 function promptUserDestination(defaultPosition) {
     var userDestination = prompt("Please enter your GPS destination [latitude, longitude]", defaultPosition.coords.latitude + ", " + defaultPosition.coords.longitude);
-
     window.localStorage.setItem('userDestination', userDestination);
-
     return userDestination;
 }
 
 
 function promptWatcherPhoneNumber(defaultWatcherPhoneNumber) {
     var watcherPhoneNumber = prompt("Please enter a phone number to send an SMS to once your trip is complete (inc. area code, no spaces or dashes)", defaultWatcherPhoneNumber);
-
     window.localStorage.setItem('watcherPhoneNumber', watcherPhoneNumber);
-
     return watcherPhoneNumber;
 }
 

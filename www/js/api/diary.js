@@ -5,7 +5,7 @@
  */
 var Diary = (function() {
 
-  var localdev = 0;
+  var localdev = 1;
   var devicedev = localdev ? 0 : 1;
 
   var endpoint = API.base_url + "/rest/type/node/diary";
@@ -82,6 +82,8 @@ var Diary = (function() {
       geolocationError,
       { frequency: settings.GPS.frequency, enableHighAccuracy: settings.GPS.enableHighAccuracy }
     );
+    $('.gps-status .status').html("enabled");
+    $('.gps-status').show();
   }
 
   /**
@@ -99,7 +101,8 @@ var Diary = (function() {
     currentDiaryGeolocations.push(coords);
     console.log("Pushing new geolocation onto geolocation array: ");
     console.dir(position);
-    addNotification("<p>New GPS coordinate recorded.</p>");
+    //addNotification("<p>New GPS coordinate recorded.</p>");
+    console.log("New GPS coordinate recorded");
 
     if(prevTime + 3000 < Date.now()) {
       console.log("Updating Diary geolocations field");
@@ -128,14 +131,15 @@ var Diary = (function() {
     currentDiaryGeolocations.push(coords);
     console.log("Pushing new geolocation onto geolocation array: ");
     console.dir(position);
-    addNotification("<p>New background GPS coordinate recorded.</p>");
+    //addNotification("<p>New background GPS coordinate recorded.</p>");
+    console.log("New background GPS coordinate recorded.");
 
-    // if(prevTime < Date.now + 3000) {
+    if(prevTime + 3000 < Date.now()) {
       console.log("Updating Diary geolocations field");
       var fields = {};
       fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
       updateDiary(currentDiaryId, fields);
-    // }
+     }
 
     /*
      IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
@@ -218,14 +222,18 @@ var Diary = (function() {
     $('.pane.diary input').hide();
     $('.set-diary-publish-time').hide();
     $('.start-diary').show();
+
     addNotification("<p>Ended current Diary</p>");
     changeDiaryStatus(0);
+
     // Shut down GPS tracking
     if(devicedev == 1) {
       backgroundGeoLocation.stop();
     }
     console.log("Here's what foregroundGeolocationWatch is: " + foregroundGeolocationWatch);
     navigator.geolocation.clearWatch(foregroundGeolocationWatch);
+    $('.gps-status .status').html("disabled");
+    $('.gps-status').show();
   }
 
   /**

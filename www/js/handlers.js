@@ -12,10 +12,6 @@ $(document).ready( function() {
   /**
    * Date picker.
    */
-  //$('#diary-publish-time').appendDtpicker({
-  //  "autodateOnStart": false
-  //});
-
   $('#diary-publish-time').datetimepicker({
     format: 'YYYY-MM-DDTHH:mm:ss'
   });
@@ -156,11 +152,12 @@ $(document).ready( function() {
   });
 
   /**
-   * Set Diary Publish Time Handler
+   * Set Diary Publish Time Button Handler
    */
   $('.set-diary-publish-time.button').click(function(e) {
     $('.form-group.set-diary-publish-time').show();
-    $('.form-group.set-diary-publish-time .button').invisible();
+    $('.form-group #diary-publish-time').show();
+    $('.form-group.set-diary-publish-time .button').visible();
     $('input#diary-publish-time').trigger("touch");
   });
 
@@ -183,6 +180,20 @@ $(document).ready( function() {
     addNotification("<p>Diary publish time updated to " + publishTime + "</p>");
     $('.diary-publish-time .publish-time').html(publishTime.replace("T", " "));
     $('.diary-publish-time').show();
+  });
+
+  /**
+   * Publish Diary now.
+   * @TODO Combine with Confirm Set Diary Publish Time Handler function.
+   */
+  $('.publish-diary-now.button').click(function(e) {
+    var now = moment();
+    $('#diary-publish-time').data("DateTimePicker").date(now);
+    var publishTime = $('input#diary-publish-time').val();
+    Diary.setPublishTime(publishTime);
+    $('.form-group.set-diary-publish-time').hide();
+    // @TODO this should really happen after updateDiarySuccess function has been called, but we'll cheat for now
+    addNotification("<p>Diary published.</p>");
   });
 
   /**

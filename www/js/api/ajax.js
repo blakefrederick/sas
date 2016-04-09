@@ -3,7 +3,7 @@
  */
 var API = new function() {
 
-    var localdev = 0;
+    var localdev = 1;
     var devicedev = localdev ? 0 : 1;
 
     if(localdev == 1) {
