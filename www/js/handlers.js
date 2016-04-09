@@ -174,7 +174,9 @@ $(document).ready( function() {
   $('.confirm-diary-publish-time.button').click(function(e) {
     var publishTime = $('input#diary-publish-time').val();
     console.log("Diary publish time set to " + publishTime + ". About to call Diary.setPublishTime");
-    Diary.setPublishTime(publishTime);
+
+    Diary.setPublishTime(moment(publishTime).utc().format('YYYY-MM-DDTHH:mm:ss'));
+
     $('.form-group.set-diary-publish-time').hide();
     // @TODO this should really happen after updateDiarySuccess function has been called, but we'll cheat for now
     addNotification("<p>Diary publish time updated to " + publishTime + "</p>");
@@ -190,7 +192,9 @@ $(document).ready( function() {
     var now = moment();
     $('#diary-publish-time').data("DateTimePicker").date(now);
     var publishTime = $('input#diary-publish-time').val();
-    Diary.setPublishTime(publishTime);
+
+    Diary.setPublishTime(moment(publishTime).utc().format('YYYY-MM-DDTHH:mm:ss'));
+
     $('.form-group.set-diary-publish-time').hide();
     // @TODO this should really happen after updateDiarySuccess function has been called, but we'll cheat for now
     addNotification("<p>Diary published.</p>");

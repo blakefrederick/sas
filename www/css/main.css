@@ -97,7 +97,8 @@ p {
     display: inline-block;
 }
 .pane div.button:after {
-    content:"\A"; white-space:pre;
+    content:"\A";
+    white-space:pre;
 }
 .pane h3 {
     color: #FFF;
@@ -113,6 +114,11 @@ p {
     color: #d7daff;
 }
 
+/*** Emergency Pane ***/
+
+.pane.emergency div.button {
+    margin: 10px 0;
+}
 
 /*** Diary ***/
 
@@ -143,5 +149,14 @@ p {
 }
 
 .gps-status {
+    display: none;
+}
+
+/* Temp */
+
+.pane.trip-history,
+.pane.trip,
+.pane.debug,
+.pane.diary-debug {
     display: none;
 }
