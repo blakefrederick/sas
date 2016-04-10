@@ -3,7 +3,7 @@
  */
 var settings = new function() {
   this.GPS = {
-    "frequency": 3000,
+    "frequency": 6000,
     "enableHighAccuracy": true,
     "background": {
       "desiredAccuracy": 10, // <- [0, 10, 100, 1000]. Lower == more accuracy, more battery power required

@@ -5,7 +5,7 @@
  */
 var Diary = (function() {
 
-  var localdev = 1;
+  var localdev = 0;
   var devicedev = localdev ? 0 : 1;
 
   var endpoint = API.base_url + "/rest/type/node/diary";
@@ -104,13 +104,13 @@ var Diary = (function() {
     //addNotification("<p>New GPS coordinate recorded.</p>");
     console.log("New GPS coordinate recorded");
 
-    if(prevTime + 3000 < Date.now()) {
+   // if(prevTime + 3000 < Date.now()) {
       console.log("Updating Diary geolocations field");
       var fields = {};
       fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
       prevTime = Date.now();
-      updateDiary(currentDiaryId, fields);
-    }
+   //   updateDiary(currentDiaryId, fields);
+   // }
   }
 
   /**
@@ -134,12 +134,12 @@ var Diary = (function() {
     //addNotification("<p>New background GPS coordinate recorded.</p>");
     console.log("New background GPS coordinate recorded.");
 
-    if(prevTime + 3000 < Date.now()) {
+   // if(prevTime + 3000 < Date.now()) {
       console.log("Updating Diary geolocations field");
       var fields = {};
       fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
       updateDiary(currentDiaryId, fields);
-     }
+   //  }
 
     /*
      IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
@@ -197,10 +197,9 @@ var Diary = (function() {
     }
 
     if(typeof fields.diaryPhoto !== 'undefined') {
-      var diaryPhotos = getCurrentDiaryImageIds();
+      var diaryPhotos = getCurrentDiaryImageIds()
       diaryPhotos.push(fields.diaryPhoto);
       requestObject.field_diary_photo = diaryPhotos;
-      addNotification("<p>Adding photo to Diary.</p>");
     }
 
     if(typeof fields.publishTime !== 'undefined') {
@@ -285,11 +284,12 @@ var Diary = (function() {
       });
     }
 
+    addNotification("<p>Adding photo to Diary.</p>");
+
     function onSuccess(imageData) {
       var endpoint = API.base_url + "/rest/type/file/file";
 
       fields.diaryPhoto = imageData;
-      console.log("Here is the image data: " + imageData);
 
       var requestObject = {
         "_links": {
@@ -377,6 +377,7 @@ var Diary = (function() {
 
   function createDiaryImageError(e) {
     createDiaryError(e);
+    addNotification("<p>Image upload failed.</p>");
   }
 
   function getCurrentDiaryId() {
@@ -413,6 +414,7 @@ var Diary = (function() {
 
   function updateDiaryError(e) {
     console.log("Error updating Diary: " + e);
+    addNotification("<p>Error updating Diary.</p>");
   }
 
 

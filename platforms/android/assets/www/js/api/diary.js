@@ -82,6 +82,8 @@ var Diary = (function() {
       geolocationError,
       { frequency: settings.GPS.frequency, enableHighAccuracy: settings.GPS.enableHighAccuracy }
     );
+    $('.gps-status .status').html("enabled");
+    $('.gps-status').show();
   }
 
   /**
@@ -99,15 +101,16 @@ var Diary = (function() {
     currentDiaryGeolocations.push(coords);
     console.log("Pushing new geolocation onto geolocation array: ");
     console.dir(position);
-    addNotification("<p>New GPS coordinate recorded.</p>");
+    //addNotification("<p>New GPS coordinate recorded.</p>");
+    console.log("New GPS coordinate recorded");
 
-    if(prevTime + 3000 < Date.now()) {
+   // if(prevTime + 3000 < Date.now()) {
       console.log("Updating Diary geolocations field");
       var fields = {};
       fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
       prevTime = Date.now();
-      updateDiary(currentDiaryId, fields);
-    }
+   //   updateDiary(currentDiaryId, fields);
+   // }
   }
 
   /**
@@ -128,14 +131,15 @@ var Diary = (function() {
     currentDiaryGeolocations.push(coords);
     console.log("Pushing new geolocation onto geolocation array: ");
     console.dir(position);
-    addNotification("<p>New background GPS coordinate recorded.</p>");
+    //addNotification("<p>New background GPS coordinate recorded.</p>");
+    console.log("New background GPS coordinate recorded.");
 
-    // if(prevTime < Date.now + 3000) {
+   // if(prevTime + 3000 < Date.now()) {
       console.log("Updating Diary geolocations field");
       var fields = {};
       fields.diaryCoordinates = {"value": JSON.stringify(getCurrentDiaryGeolocations())};
       updateDiary(currentDiaryId, fields);
-    // }
+   //  }
 
     /*
      IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
@@ -193,10 +197,9 @@ var Diary = (function() {
     }
 
     if(typeof fields.diaryPhoto !== 'undefined') {
-      var diaryPhotos = getCurrentDiaryImageIds();
+      var diaryPhotos = getCurrentDiaryImageIds()
       diaryPhotos.push(fields.diaryPhoto);
       requestObject.field_diary_photo = diaryPhotos;
-      addNotification("<p>Adding photo to Diary.</p>");
     }
 
     if(typeof fields.publishTime !== 'undefined') {
@@ -218,14 +221,18 @@ var Diary = (function() {
     $('.pane.diary input').hide();
     $('.set-diary-publish-time').hide();
     $('.start-diary').show();
+
     addNotification("<p>Ended current Diary</p>");
     changeDiaryStatus(0);
+
     // Shut down GPS tracking
     if(devicedev == 1) {
       backgroundGeoLocation.stop();
     }
     console.log("Here's what foregroundGeolocationWatch is: " + foregroundGeolocationWatch);
     navigator.geolocation.clearWatch(foregroundGeolocationWatch);
+    $('.gps-status .status').html("disabled");
+    $('.gps-status').show();
   }
 
   /**
@@ -277,11 +284,12 @@ var Diary = (function() {
       });
     }
 
+    addNotification("<p>Adding photo to Diary.</p>");
+
     function onSuccess(imageData) {
       var endpoint = API.base_url + "/rest/type/file/file";
 
       fields.diaryPhoto = imageData;
-      console.log("Here is the image data: " + imageData);
 
       var requestObject = {
         "_links": {
@@ -369,6 +377,7 @@ var Diary = (function() {
 
   function createDiaryImageError(e) {
     createDiaryError(e);
+    addNotification("<p>Image upload failed.</p>");
   }
 
   function getCurrentDiaryId() {
@@ -405,6 +414,7 @@ var Diary = (function() {
 
   function updateDiaryError(e) {
     console.log("Error updating Diary: " + e);
+    addNotification("<p>Error updating Diary.</p>");
   }
 
 

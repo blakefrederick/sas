@@ -6,7 +6,7 @@
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 	<link href="css/main.css" rel="stylesheet" type="text/css" media="all"/>
-	<link href="js/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet" type="text/css" media="all"/>
+	<!--<link href="js/lib/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet" type="text/css" media="all"/>-->
 	<link href="css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
 	<link href="css/bootstrap/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" media="all"/>
 	<link type="text/css" href="css/mmenu.css" rel="stylesheet" media="all" />
@@ -49,6 +49,7 @@
 	      <div class="header">
 	      	  <div class="header_top">
 	      	     	<div class="menu-ico"><a href="#menu"></a></div>
+				  	<div class="app-title">SAS</div>
 					  <div class="profile_details">
 				    		   <div id="loginContainer">
 				                  <a id="loginButton" class=""><span>Blake</span></a>
@@ -89,14 +90,17 @@
 				   <h3>Diary Management</h3>
 				   <div class="diary-status"><p>Diary Status: <span class="status">Not Active</span></p></div>
 				   <div class="diary-publish-time"><p>Diary will be published at: <span class="publish-time">Not Set</span></p></div>
+				   <div class="gps-status"><p>GPS tracking: <span class="status">disabled</span></p></div>
 				   <div class="button start-diary"><a>Create New Diary</a></div>
 				   <div class="button add-note"><a>Add Note</a></div>
 				   <div class="button add-photo"><a>Add Photo</a></div>
-				   <div class="button set-diary-publish-time"><a>Set Auto Publish Time</a></div>
+				   <div class="button set-diary-publish-time"><a>Set Publish Time</a></div>
 				   <div class="form-group set-diary-publish-time">
-					   <label for="diary-publish-time">Date/Time</label>
+					   <!--<label for="diary-publish-time">Date/Time</label>-->
 					   <input class="form-control" type="text" maxlength="40" placeholder="Date/Time" id="diary-publish-time"/>
 					   <div class="button confirm-diary-publish-time"><a>Confirm</a></div>
+					   <div class="text"><p>or</p></div>
+					   <div class="button publish-diary-now"><a>Publish Now</a></div>
 				   </div>
 				   <div class="button end-diary"><a>End Diary</a></div>
 			   </div>
@@ -179,6 +183,7 @@
 		           	  </ul>
 		           </div>
 		       </div>
+				<!--- Don't need these styles but could mine some of it in the future
 		         <div class="weather">
 		               <h3><i><img src="images/location.png" alt="" /> </i> Cluj-Napoca / Ro</h3>
 		              <div class="today_temp">
@@ -338,7 +343,8 @@
 				   <div class="column_right_grid calender">
                       <div class="cal1"> </div>
 				   </div>
-             </div>
+				   -->
+			</div>
     	<div class="clear"></div>
  	 </div>
    </div>   

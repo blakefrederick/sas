@@ -1,13 +1,29 @@
 /** General **/
 
+html body {
+    background-color: #595594;
+}
+
 input {
     max-width: 80%;
     margin: 0 auto !important;
 }
 
-label {
+label,
+p {
     color: white;
 }
+
+.button a:hover,
+.button a:focus {
+    color: #ddd;
+    text-decoration: none;
+}
+
+.button a:active {
+    transform: scale(0.935);
+}
+
 
 
 /** Buttons **/
@@ -63,7 +79,7 @@ label {
 /****** Notifications ******/
 
 .notifications .container {
-    height: 72px;
+    height: 76px;
     overflow-y: hidden;
 }
 
@@ -89,6 +105,11 @@ label {
 }
 .pane div.button {
     margin: 20px 0;
+    display: inline-block;
+}
+.pane div.button:after {
+    content:"\A";
+    white-space:pre;
 }
 .pane h3 {
     color: #FFF;
@@ -104,13 +125,22 @@ label {
     color: #d7daff;
 }
 
+/*** Emergency Pane ***/
+
+.pane.emergency div.button {
+    margin: 10px 0;
+}
 
 /*** Diary ***/
 
 .form-group.set-diary-publish-time {
     display: none;
+    position: relative;
 }
-.form-group.set-diary-publish-time * {
+.form-group.set-diary-publish-time .confirm-diary-publish-time,
+.form-group.set-diary-publish-time .text,
+.form-group.set-diary-publish-time .publish-diary-now,
+.form-group.set-diary-publish-time #diary-publish-time {
     display: inline-block;
 }
 .form-group.set-diary-publish-time input {
@@ -127,4 +157,28 @@ label {
 
 .diary-publish-time {
     display: none;
+}
+
+.gps-status {
+    display: none;
+}
+
+/* Temp */
+
+.pane.trip-history,
+.pane.trip,
+.pane.debug,
+.pane.diary-debug {
+    display: none;
+}
+
+/*** Misc ***/
+
+.app-title {
+    position: absolute;
+    top: 16px;
+    left: 70px;
+    color: white;
+    font-size: 28px;
+    letter-spacing: 1px;
 }

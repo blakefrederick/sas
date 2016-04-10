@@ -60,7 +60,8 @@ var ajaxRequest = (function() {
             type: ajaxMethod,
             headers: {
                 // @TODO: Move these credentials out of here once user login functions
-                "Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
+                //"Authorization": 'Basic c3NlY3VyaXR5dXNlcjE6c3MxcGFzc3dvcmQ=',
+                "Authorization": 'Basic U0FTIFVzZXIgMTpwYXNzd29yZA==',
                 "X-CSRF-Token": API.restToken,
                 "Content-Type": 'application/hal+json'
             },
